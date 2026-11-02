@@ -16,7 +16,7 @@
 :root{
   --bg:#050505; --surface:#111110; --ink:#f1efe9; --muted:#aaa69c; --line:#332a18;
   --accent:#f5a300; --accent-soft:#2a1d05; --signal:#f5a300; --signal-soft:#33240a; --ok:#21d07a;
-  --before:#7f6b45; --on-accent:#050505;
+  --before:#7f6b45; --on-accent:#050505; --serie1:#c98400; --serie2:#3f8ec7;
   --display:"Bricolage Grotesque","Segoe UI",sans-serif;
   --body:"IBM Plex Sans","Segoe UI",sans-serif;
   --mono:"IBM Plex Mono",Consolas,monospace;
@@ -103,13 +103,14 @@ footer{margin-top:56px;background:var(--accent);color:var(--on-accent)}
 footer .wrap{padding-block:clamp(34px,6vw,56px);display:grid;gap:14px}
 footer h2{font-size:clamp(1.7rem,4vw,2.6rem)}
 footer a{color:inherit}
-footer p{max-width:60ch}
+footer p{max-width:none}
 .contact{display:flex;flex-wrap:wrap;gap:8px 28px;font:500 .94rem/1.5 var(--mono)}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
 .nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg)}
 .nav a{text-decoration:none;color:var(--muted);padding-block:2px;border-bottom:2px solid transparent;transition:color .15s,border-color .15s}
 .nav a:hover,.nav a.active{color:var(--accent);border-color:var(--accent)}
 section[id],footer[id]{scroll-margin-top:56px}
+.case-toggle{scroll-margin-top:52px}
 .btn{font:500 .8rem/1.3 var(--mono);color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:4px;padding:7px 11px;cursor:pointer;transition:color .15s,border-color .15s,background .15s,transform .1s}
 .btn:hover{border-color:var(--accent);color:var(--accent)}
 .btn:active{transform:translateY(1px)}
@@ -134,12 +135,66 @@ tr.hide{display:none}
 .contact button{color:var(--on-accent);border-color:var(--on-accent)}
 .contact button:hover{color:var(--on-accent);border-color:var(--on-accent);background:rgba(0,0,0,.12)}
 .contact{align-items:center}
+.plot-box{padding:12px 14px;border-top:1px solid var(--line)}
+.plot-title{font:500 .78rem/1.4 var(--mono);color:var(--ink);margin-bottom:8px}
+.plot{position:relative;min-width:0}
+.plot svg{display:block;width:100%;height:auto;touch-action:pan-y}
+.plot text{font:400 11px var(--mono);fill:var(--muted)}
+.plot .end{fill:var(--ink);font-weight:500}
+.tip{position:absolute;z-index:3;pointer-events:none;background:var(--bg);color:var(--ink);border:1px solid var(--accent);border-radius:3px;padding:4px 7px;font:400 .74rem/1.3 var(--mono);white-space:nowrap;transform:translate(-50%,-115%)}
+.key{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:6px;font:400 .74rem/1.4 var(--mono);color:var(--muted)}
+.key i{display:inline-block;width:10px;height:10px;margin-right:6px;border-radius:2px}
+.hbars{display:grid;gap:8px}
+.hbar{display:grid;grid-template-columns:96px minmax(0,1fr) 74px;gap:8px;align-items:center;font-size:.8rem;cursor:default}
+.hbar>div{height:10px;background:var(--accent-soft);border-radius:0 4px 4px 0;overflow:hidden}
+.hbar s{display:block;height:100%;background:var(--accent);border-radius:0 4px 4px 0}
+.hbar b{font:400 .76rem/1 var(--mono);text-align:right;font-variant-numeric:tabular-nums}
+.hbar:hover span,.hbar:hover b{color:var(--accent)}
 @media (prefers-reduced-motion:reduce){.btn,.line s,.case,.screen,.nav a{transition:none}}
 @media (max-width:820px){
   header.hero,.case,.cv{grid-template-columns:minmax(0,1fr)}
   .flow li{grid-template-columns:76px minmax(0,1fr)}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Versão minimalista: abertura limpa e conteúdo aberto pelo visitante */
+header.hero{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:0;min-height:calc(100vh - 4px);min-height:calc(100svh - 4px);padding-block:48px}
+.hero h1{font-size:clamp(3rem,9vw,7rem);margin-top:18px}
+.hero .lead{color:var(--muted);margin-top:18px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+.hero-actions a{text-decoration:none;padding:10px 16px}
+.trilhas{position:absolute;bottom:0;right:calc(-1 * max(clamp(16px,4vw,72px),env(safe-area-inset-right,0px)));width:clamp(150px,18vw,260px);height:auto;pointer-events:none;overflow:visible}
+.trilhas path{fill:none;stroke-linejoin:round;stroke-linecap:round}
+.trilhas .base path{stroke:var(--accent);stroke-width:1;opacity:.28}
+.trilhas .pulso path{stroke:var(--accent);stroke-width:1.5;stroke-dasharray:14 86;stroke-dashoffset:100;animation:sobe 5s linear infinite}
+.trilhas .pulso path:nth-child(2){animation-delay:-1.6s}
+.trilhas .pulso path:nth-child(3){animation-delay:-3.2s}
+.trilhas circle{fill:var(--accent);opacity:.75}
+@keyframes sobe{to{stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){.trilhas .pulso{display:none}}
+.case{display:block;padding-block:0}
+.case-h{margin:0}
+.case-toggle{width:100%;display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr) auto;gap:18px;align-items:baseline;background:transparent;border:0;color:var(--ink);text-align:left;padding-block:20px;cursor:pointer;font:inherit}
+.case-title{font:700 clamp(1.2rem,2.4vw,1.75rem)/1.15 var(--display);transition:color .15s}
+.mais{font:400 1.5rem/1 var(--mono);color:var(--accent);transition:transform .2s}
+.case-toggle:hover .case-title{color:var(--accent)}
+.case-toggle[aria-expanded="true"] .mais{transform:rotate(45deg)}
+.case-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(22px,4vw,72px);align-items:start;padding-bottom:clamp(26px,4vw,44px)}
+.case-body[hidden]{display:none}
+.case-body>div{min-width:0}
+.case-body .flow{margin-top:0}
+.cases{border-bottom:1px solid var(--line)}
+.casos-nota{margin-top:14px}
+.real{color:var(--accent);font-weight:400;margin-left:8px}
+#corpo-7 .kpis strong{font-size:1rem}
+.cv{padding-top:8px}
+.cv[hidden]{display:none}
+@media (max-width:820px){
+  .case-toggle{grid-template-columns:minmax(0,1fr) auto;gap:4px 12px}
+  .case-toggle .eyebrow{grid-column:1 / -1}
+  .case-body{grid-template-columns:minmax(0,1fr)}
+}
+@media (prefers-reduced-motion:reduce){.mais,.case-title{transition:none}}
 </style>
 <style>html,body{margin:0}</style>
 </head>
@@ -149,20 +204,30 @@ tr.hide{display:none}
 <div class="topline"></div>
 <div class="wrap">
   <header class="hero">
-    <div>
-      <p class="prompt"><b>&gt;_</b> data engineer <i aria-hidden="true"></i></p>
-      <p class="skills-line">python · sql · aws · etl · automação</p>
-      <h1>Gustavo <span>Andrade</span></h1>
-      <p class="lead">Transformo dados espalhados e tarefas manuais em sistemas que rodam sozinhos, avisam quando algo sai do esperado e mostram um número em que dá para confiar.</p>
+    <svg class="trilhas" viewBox="0 0 240 300" aria-hidden="true" focusable="false">
+      <g class="base">
+        <path pathLength="100" d="M70 300 L126 246 V170"/>
+        <path pathLength="100" d="M128 300 L184 244 V96"/>
+        <path pathLength="100" d="M176 300 L232 236 V22"/>
+        <path pathLength="100" d="M214 300 L240 274"/>
+      </g>
+      <g class="pulso">
+        <path pathLength="100" d="M70 300 L126 246 V170"/>
+        <path pathLength="100" d="M128 300 L184 244 V96"/>
+        <path pathLength="100" d="M176 300 L232 236 V22"/>
+      </g>
+      <circle cx="126" cy="170" r="3.5"/>
+      <circle cx="184" cy="96" r="3.5"/>
+      <circle cx="232" cy="22" r="3.5"/>
+    </svg>
+    <p class="prompt"><b>&gt;_</b> data engineer <i aria-hidden="true"></i></p>
+    <h1>Gustavo <span>Andrade</span></h1>
+    <p class="lead">Dados e automações que funcionam sozinhos.</p>
+    <div class="hero-actions">
+      <a class="btn primary" href="#casos">Ver projetos</a>
+      <a class="btn" href="#experiencia">Trajetória</a>
+      <a class="btn" href="#contato">Contato</a>
     </div>
-    <aside class="who" aria-label="Resumo">
-      <dl>
-        <div><dt>Experiência</dt><dd>Desde 2017 em dados, automação e sistemas internos</dd></div>
-        <div><dt>Hoje</dt><dd>Engenheiro de Dados na PGX</dd></div>
-        <div><dt>Formação</dt><dd>MBA em IA para Automação de Processos</dd></div>
-        <div><dt>Trabalho com</dt><dd>Python, SQL, APIs, AWS e PostgreSQL</dd></div>
-      </dl>
-    </aside>
   </header>
   <nav class="nav" aria-label="Seções">
     <a href="#casos">Casos</a><a href="#experiencia">Experiência</a><a href="#contato">Contato</a>
@@ -170,9 +235,7 @@ tr.hide{display:none}
 
   <section id="casos" aria-labelledby="t-casos">
     <div class="section-head">
-      <p class="eyebrow">Projetos reais</p>
-      <h2 id="t-casos">Seis problemas, do dado de entrada ao resultado</h2>
-      <p>Os clientes e os valores financeiros ficam fora por confidencialidade. As telas são exemplos com dados fictícios. Os indicadores de resultado vêm dos projetos. Use os botões para testar cada exemplo.</p>
+      <h2 id="t-casos">Projetos</h2>
       <div class="filters" role="group" aria-label="Filtrar casos por área">
         <button class="btn" type="button" id="f-todos" data-filter="todos" aria-pressed="true">Todos</button>
         <button class="btn" type="button" id="f-automacao" data-filter="automacao" aria-pressed="false">Automação</button>
@@ -181,13 +244,14 @@ tr.hide{display:none}
         <button class="btn" type="button" id="f-ia" data-filter="ia" aria-pressed="false">IA</button>
         <button class="btn" type="button" id="f-marketing" data-filter="marketing" aria-pressed="false">Marketing</button>
       </div>
-      <p class="filter-count" id="filter-count" aria-live="polite">Mostrando os 6 casos</p>
+      <p class="filter-count" id="filter-count" aria-live="polite">Mostrando os 7 casos</p>
     </div>
+    <div class="cases">
 
     <article class="case" data-area="automacao">
+      <h3 class="case-h"><button class="case-toggle" type="button" id="tg-1" aria-expanded="false" aria-controls="corpo-1"><span class="eyebrow">Atendimento e finanças</span><span class="case-title">Assistente financeiro no WhatsApp</span><span class="mais" aria-hidden="true">+</span></button></h3>
+      <div class="case-body" id="corpo-1" hidden>
       <div>
-        <p class="eyebrow">Atendimento e finanças</p>
-        <h3>Assistente financeiro no WhatsApp</h3>
         <ul class="flow">
           <li><b>Problema</b><span>Acompanhar conta, cartões, parcelas e contas fixas exigia abrir vários aplicativos.</span></li>
           <li><b>Solução</b><span>Criei um bot que recebe os dados por Open Finance, classifica cada gasto, identifica estabelecimentos e responde a comandos em um grupo.</span></li>
@@ -202,6 +266,10 @@ tr.hide{display:none}
           <p class="msg"><strong>Raio-X do mês</strong><br>Alimentação: R$ 1.280,00<br>Compras até R$ 30: 18<br>Ritmo do mês: sobra ~R$ 410,00</p>
           <p class="msg">Reposição perto do teto da semana: R$ 148,00 de R$ 175,00.</p>
         </div>
+        <div class="plot-box">
+          <p class="plot-title">Gastos do mês por categoria</p>
+          <div class="hbars" id="g-cat" role="img" aria-label="Moradia R$ 2.100, Alimentação R$ 1.280, Transporte R$ 420, Lazer R$ 260 e Saúde R$ 190."></div>
+        </div>
         <div class="controls" role="group" aria-label="Comandos do bot">
           <span class="hint">Teste um comando:</span>
           <button class="btn" type="button" id="cmd-raio" data-cmd="raio-x">raio-x</button>
@@ -210,18 +278,115 @@ tr.hide{display:none}
           <button class="btn" type="button" id="cmd-lugar" data-cmd="lugares">lugares</button>
         </div>
       </figure>
+          </div>
     </article>
 
-    <article class="case" data-area="automacao integracao">
+    <article class="case" data-area="dados">
+      <h3 class="case-h"><button class="case-toggle" type="button" id="tg-2" aria-expanded="false" aria-controls="corpo-2"><span class="eyebrow">Engenharia de dados</span><span class="case-title">Plataforma de dados multi-tenant</span><span class="mais" aria-hidden="true">+</span></button></h3>
+      <div class="case-body" id="corpo-2" hidden>
       <div>
-        <p class="eyebrow">Fiscal</p>
-        <h3>Captura automática de documentos fiscais</h3>
         <ul class="flow">
-          <li><b>Problema</b><span>Uma transportadora dependia de portais, e-mails e relatórios para reunir seus documentos.</span></li>
-          <li><b>Solução</b><span>Automatizei a coleta de CT-e, NF-e e NFS-e por portais, e-mail e API autenticada com certificado digital.</span></li>
-          <li class="out"><b>Resultado</b><span>Rotina diária de 7 etapas com monitoramento. Encontrei a causa de 59 notas que falhavam todos os dias e recuperei as 59.</span></li>
+          <li><b>Problema</b><span>Uma plataforma com várias empresas e alto volume de transações precisava de dados analíticos atualizados e confiáveis.</span></li>
+          <li><b>Solução</b><span>Atuo na arquitetura em camadas na AWS, com pipelines em Prefect, data lake em Apache Iceberg sobre S3 e modelagem analítica em PostgreSQL.</span></li>
+          <li class="out"><b>Resultado</b><span>Dados em janelas próximas ao tempo real e consultas otimizadas em custo e desempenho, com dashboards que saíram da casa dos minutos para segundos.</span></li>
         </ul>
-        <ul class="tags"><li>Python</li><li>XML</li><li>mTLS</li><li>PostgreSQL</li><li>AWS</li></ul>
+        <ul class="tags"><li>Python</li><li>Prefect</li><li>Apache Iceberg</li><li>Athena</li><li>Glue</li><li>PostgreSQL</li></ul>
+      </div>
+      <figure class="screen" style="margin:0">
+        <div class="bar"><span>Camadas de dados</span><i>Dados fictícios</i></div>
+        <div class="pad scroll"><table>
+          <thead id="cam-head"><tr><th>Origem</th><th>Evento</th><th class="n">Valor</th></tr></thead>
+          <tbody id="cam-rows"><tr><td>api_vendas</td><td>{"status":"PAGO"}</td><td class="n">"120,50"</td></tr><tr><td>api_vendas</td><td>{"status":"pago "}</td><td class="n">"120,50"</td></tr><tr><td>api_app</td><td>{"status":"NOVO"}</td><td class="n">"89,90"</td></tr></tbody>
+        </table><p class="note" id="cam-note">Bronze: o dado bruto, como chegou da origem.</p></div>
+        <div class="controls" role="group" aria-label="Camada de dados">
+          <span class="hint">Camada:</span>
+          <button class="btn" type="button" id="cam-bronze" data-cam="bronze" aria-pressed="true">Bronze</button>
+          <button class="btn" type="button" id="cam-silver" data-cam="silver" aria-pressed="false">Silver</button>
+          <button class="btn" type="button" id="cam-gold" data-cam="gold" aria-pressed="false">Gold</button>
+        </div>
+      </figure>
+          </div>
+    </article>
+
+    <article class="case" data-area="ia dados">
+      <h3 class="case-h"><button class="case-toggle" type="button" id="tg-7" aria-expanded="false" aria-controls="corpo-7"><span class="eyebrow">Machine learning</span><span class="case-title">Motor de próxima melhor ação (NBO)</span><span class="mais" aria-hidden="true">+</span></button></h3>
+      <div class="case-body" id="corpo-7" hidden>
+      <div>
+        <ul class="flow">
+          <li><b>Problema</b><span>Uma plataforma digital precisava decidir qual ação oferecer a cada cliente, e em que momento, sem tratar todos da mesma forma.</span></li>
+          <li><b>Solução</b><span>Liderei um motor que combina regras e modelo de propensão, roda 5 vezes ao dia e foi desenhado para medir o efeito real com grupo de controle e teste A/B.</span></li>
+          <li class="out"><b>Resultado</b><span>Modelo com AUC de 0,851 em teste fora do tempo, contra 0,750 das regras. O motor opera em modo sombra, com checagens automáticas de qualidade, deriva dos dados e vazamento a cada rodada.</span></li>
+        </ul>
+        <ul class="tags"><li>Python</li><li>Regressão logística</li><li>LightGBM</li><li>Prefect</li><li>PostgreSQL</li><li>Teste A/B</li></ul>
+      </div>
+      <figure class="screen" style="margin:0">
+        <div class="bar"><span>Decisão por cliente</span><i>Dados fictícios</i></div>
+        <div class="pad">
+          <div class="kpis">
+            <div><span>Perfil</span><strong id="n-perfil">Novo</strong></div>
+            <div><span>Propensão</span><strong id="n-nota">64%</strong></div>
+            <div><span>Ação</span><strong id="n-acao">Boas-vindas</strong></div>
+          </div>
+          <p class="note" id="n-motivo">Primeira semana de uso e propensão acima do corte de 50%.</p>
+        </div>
+        <div class="controls" role="group" aria-label="Escolher cliente">
+          <span class="hint">Cliente:</span>
+          <button class="btn" type="button" id="n-a" data-cli="a" aria-pressed="true">Novo</button>
+          <button class="btn" type="button" id="n-b" data-cli="b" aria-pressed="false">Ativo</button>
+          <button class="btn" type="button" id="n-c" data-cli="c" aria-pressed="false">Parado</button>
+          <button class="btn" type="button" id="n-d" data-cli="d" aria-pressed="false">Grupo de controle</button>
+        </div>
+        <div class="plot-box">
+          <p class="plot-title">AUC fora do tempo <span class="real">Medição real</span></p>
+          <div class="hbars" role="img" aria-label="Regressão logística 0,851, LightGBM 0,846 e regras 0,750.">
+            <div class="hbar"><span>Logística</span><div><s style="width:85.1%"></s></div><b>0,851</b></div>
+            <div class="hbar"><span>LightGBM</span><div><s style="width:84.6%"></s></div><b>0,846</b></div>
+            <div class="hbar"><span>Regras</span><div><s style="width:75%"></s></div><b>0,750</b></div>
+          </div>
+        </div>
+      </figure>
+      </div>
+    </article>
+
+    <article class="case" data-area="dados integracao">
+      <h3 class="case-h"><button class="case-toggle" type="button" id="tg-3" aria-expanded="false" aria-controls="corpo-3"><span class="eyebrow">Logística</span><span class="case-title">Torre de controle logística</span><span class="mais" aria-hidden="true">+</span></button></h3>
+      <div class="case-body" id="corpo-3" hidden>
+      <div>
+        <ul class="flow">
+          <li><b>Problema</b><span>Acompanhar a cadeia, do B2B ao B2C, dependia de informações espalhadas em diferentes fontes, incluindo o SAP.</span></li>
+          <li><b>Solução</b><span>Desenvolvi a aplicação ponta a ponta em Python e Streamlit, com pipelines em Alteryx e carga em PostgreSQL.</span></li>
+          <li class="out"><b>Resultado</b><span>Dados gerenciais de toda a cadeia monitorados em tempo real em um único painel.</span></li>
+        </ul>
+        <ul class="tags"><li>Python</li><li>Streamlit</li><li>Alteryx</li><li>SAP</li><li>PostgreSQL</li></ul>
+      </div>
+      <figure class="screen" style="margin:0">
+        <div class="bar"><span>Pedidos em andamento</span><i>Dados fictícios</i></div>
+        <div class="pad scroll"><table>
+          <thead><tr><th>Pedido</th><th>Canal</th><th>Destino</th><th>Status</th></tr></thead>
+          <tbody id="conc"><tr data-st="ok"><td>48213</td><td>B2B</td><td>Curitiba</td><td class="ok">No prazo</td></tr><tr data-st="ok"><td>48214</td><td>B2C</td><td>São Paulo</td><td class="ok">No prazo</td></tr><tr data-st="dif"><td>48215</td><td>B2B</td><td>Recife</td><td class="warn">Atrasado</td></tr></tbody>
+        </table></div>
+        <div class="plot-box">
+          <p class="plot-title">Entregas no prazo, últimos 7 dias</p>
+          <div class="plot" id="g-prazo" role="img" aria-label="Entregas no prazo por dia: segunda 92%, terça 94%, quarta 91%, quinta 95%, sexta 96%, sábado 93% e domingo 97%."></div>
+        </div>
+        <div class="controls" role="group" aria-label="Filtrar pedidos">
+          <button class="btn" type="button" id="c-todos" data-st="todos" aria-pressed="true">Todos</button>
+          <button class="btn" type="button" id="c-dif" data-st="dif" aria-pressed="false">Só atrasados</button>
+        </div>
+      </figure>
+          </div>
+    </article>
+
+    <article class="case" data-area="automacao integracao dados">
+      <h3 class="case-h"><button class="case-toggle" type="button" id="tg-4" aria-expanded="false" aria-controls="corpo-4"><span class="eyebrow">Fiscal e financeiro</span><span class="case-title">Automação fiscal e financeira para transportadora</span><span class="mais" aria-hidden="true">+</span></button></h3>
+      <div class="case-body" id="corpo-4" hidden>
+      <div>
+        <ul class="flow">
+          <li><b>Problema</b><span>A empresa não tinha ERP e reunia documentos, pagamentos e resultados em portais, e-mails e planilhas.</span></li>
+          <li><b>Solução</b><span>Automatizei a coleta de CT-e, NF-e e NFS-e e a conciliação de pagamentos. Trabalho com a equipe do cliente no sistema de gestão, com frete, contas e DRE.</span></li>
+          <li class="out"><b>Resultado</b><span>Rotina diária de 7 etapas, 59 de 59 notas com falha recuperadas e 450 de 451 documentos conciliados na validação. O fechamento mensal passou a ser feito pelo sistema.</span></li>
+        </ul>
+        <ul class="tags"><li>Python</li><li>Flask</li><li>XML</li><li>mTLS</li><li>PostgreSQL</li><li>AWS</li></ul>
       </div>
       <figure class="screen" style="margin:0">
         <div class="bar"><span>Execução diária</span><i>Dados fictícios</i></div>
@@ -231,71 +396,20 @@ tr.hide{display:none}
 06:06 validacao_xml      <span class="ok">ok</span>    0 com erro
 06:07 carga_banco        <span class="ok">ok</span>  241 linhas
 06:07 duplicidades       <span class="ok">ok</span>    0</div>
+        <div class="plot-box">
+          <p class="plot-title">Receita e despesa por mês (R$ mil)</p>
+          <div class="key"><span><i style="background:var(--serie1)"></i>Receita</span><span><i style="background:var(--serie2)"></i>Despesa</span></div>
+          <div class="plot" id="g-dre" role="img" aria-label="Receita e despesa em milhares de reais: janeiro 108 e 90, fevereiro 114 e 91, março 120 e 92, abril 126 e 97, maio 118 e 95, junho 132 e 99."></div>
+        </div>
         <div class="controls"><button class="btn primary" type="button" id="run-btn">Executar rotina</button><span class="hint" id="run-status">Última execução: 06:07</span></div>
       </figure>
-    </article>
-
-    <article class="case" data-area="dados">
-      <div>
-        <p class="eyebrow">Gestão e financeiro</p>
-        <h3>Sistema de gestão para transportadora</h3>
-        <ul class="flow">
-          <li><b>Problema</b><span>A empresa não tinha ERP e controlava a operação com planilhas e relatórios de clientes.</span></li>
-          <li><b>Solução</b><span>Trabalho na evolução do sistema com a equipe do cliente: alocações, cálculo de frete, conferência fiscal, contas, DRE e deploy.</span></li>
-          <li class="out"><b>Resultado</b><span>A transportadora passou a fechar o mês pelo sistema, com 108 testes automatizados e backups antes de cada entrega.</span></li>
-        </ul>
-        <ul class="tags"><li>Python</li><li>Flask</li><li>PostgreSQL</li><li>Docker</li><li>AWS</li></ul>
-      </div>
-      <figure class="screen" style="margin:0">
-        <div class="bar"><span>Painel do mês</span><i>Dados fictícios</i></div>
-        <div class="pad">
-          <div class="kpis">
-            <div><span>Receita</span><strong id="k-rec">R$ 120 mil</strong></div>
-            <div><span>Despesa</span><strong id="k-des">R$ 92 mil</strong></div>
-            <div><span>Resultado</span><strong id="k-res">R$ 28 mil</strong></div>
           </div>
-          <div class="scroll"><table>
-            <thead><tr><th>Veículo</th><th class="n">Viagens</th><th class="n">Margem</th></tr></thead>
-            <tbody id="k-rows"><tr><td>ABC1D23</td><td class="n">22</td><td class="n">31%</td></tr><tr><td>EFG4H56</td><td class="n">19</td><td class="n">27%</td></tr><tr><td>IJK7L89</td><td class="n">17</td><td class="n">24%</td></tr></tbody>
-          </table></div>
-        </div>
-        <div class="controls" role="group" aria-label="Período do painel">
-          <span class="hint">Período:</span>
-          <button class="btn" type="button" id="m-jan" data-mes="jan" aria-pressed="false">Janeiro</button>
-          <button class="btn" type="button" id="m-fev" data-mes="fev" aria-pressed="false">Fevereiro</button>
-          <button class="btn" type="button" id="m-mar" data-mes="mar" aria-pressed="true">Março</button>
-        </div>
-      </figure>
-    </article>
-
-    <article class="case" data-area="integracao dados">
-      <div>
-        <p class="eyebrow">Integração</p>
-        <h3>Conciliação automática de pagamentos</h3>
-        <ul class="flow">
-          <li><b>Problema</b><span>Saber quanto foi pago por documento exigia conferência manual no portal do cliente.</span></li>
-          <li><b>Solução</b><span>Integrei o portal e identifiquei a chave exata para ligar cada título ao seu CT-e.</span></li>
-          <li class="out"><b>Resultado</b><span>450 de 451 documentos conciliados na validação. Depois, 101 de 101 no fechamento mensal.</span></li>
-        </ul>
-        <ul class="tags"><li>Python</li><li>API REST</li><li>SQL</li></ul>
-      </div>
-      <figure class="screen" style="margin:0">
-        <div class="bar"><span>Conciliação</span><i>Dados fictícios</i></div>
-        <div class="pad scroll"><table>
-          <thead><tr><th>CT-e</th><th class="n">Emitido</th><th class="n">Pago</th><th>Status</th></tr></thead>
-          <tbody id="conc"><tr data-st="ok"><td>10-1042</td><td class="n">1.250,00</td><td class="n">1.250,00</td><td class="ok">Conciliado</td></tr><tr data-st="ok"><td>10-1043</td><td class="n">980,00</td><td class="n">980,00</td><td class="ok">Conciliado</td></tr><tr data-st="dif"><td>10-1044</td><td class="n">1.410,00</td><td class="n">1.310,00</td><td class="warn">Diferença</td></tr></tbody>
-        </table></div>
-        <div class="controls" role="group" aria-label="Filtrar conciliação">
-          <button class="btn" type="button" id="c-todos" data-st="todos" aria-pressed="true">Todos</button>
-          <button class="btn" type="button" id="c-dif" data-st="dif" aria-pressed="false">Só diferenças</button>
-        </div>
-      </figure>
     </article>
 
     <article class="case" data-area="ia automacao">
+      <h3 class="case-h"><button class="case-toggle" type="button" id="tg-5" aria-expanded="false" aria-controls="corpo-5"><span class="eyebrow">Inteligência artificial</span><span class="case-title">Leitura de faturas escaneadas com IA</span><span class="mais" aria-hidden="true">+</span></button></h3>
+      <div class="case-body" id="corpo-5" hidden>
       <div>
-        <p class="eyebrow">Inteligência artificial</p>
-        <h3>Leitura de faturas escaneadas com IA</h3>
         <ul class="flow">
           <li><b>Problema</b><span>Faturas em imagem geravam colunas trocadas e valores errados na leitura automática.</span></li>
           <li><b>Solução</b><span>Combinei a leitura por IA com regras de conferência: quantidade vezes preço, soma do total e veículo da frota.</span></li>
@@ -311,12 +425,13 @@ tr.hide{display:none}
         </table><p class="result-msg" id="fat-msg" aria-live="polite">A primeira tentativa de salvar avisa. A segunda confirma.</p></div>
         <div class="controls"><button class="btn primary" type="button" id="fat-btn">Salvar fatura</button></div>
       </figure>
+          </div>
     </article>
 
     <article class="case" data-area="marketing dados">
+      <h3 class="case-h"><button class="case-toggle" type="button" id="tg-6" aria-expanded="false" aria-controls="corpo-6"><span class="eyebrow">Marketing e dados</span><span class="case-title">Tracking e atribuição de campanhas</span><span class="mais" aria-hidden="true">+</span></button></h3>
+      <div class="case-body" id="corpo-6" hidden>
       <div>
-        <p class="eyebrow">Marketing e dados</p>
-        <h3>Tracking e atribuição de campanhas</h3>
         <ul class="flow">
           <li><b>Problema</b><span>Eventos enviados às plataformas de anúncio carregavam dados de clique com horário posterior ao da conversão.</span></li>
           <li><b>Solução</b><span>Corrigi a seleção dos dados de clique no pipeline de eventos server-side e adicionei uma validação do valor enviado.</span></li>
@@ -341,15 +456,17 @@ tr.hide{display:none}
           <button class="btn" type="button" id="t-depois" data-view="depois" aria-pressed="false">Só depois</button>
         </div>
       </figure>
+          </div>
     </article>
+    </div>
+    <p class="note casos-nota">Clientes e valores financeiros ficam fora por confidencialidade. As telas usam dados fictícios, exceto a medição de tracking.</p>
   </section>
 
   <section id="experiencia" aria-labelledby="t-exp">
     <div class="section-head">
-      <p class="eyebrow">Trajetória</p>
-      <h2 id="t-exp">Experiência e formação</h2>
+      <h2 id="t-exp">Trajetória</h2>
     </div>
-    <div class="cv">
+    <div class="cv" id="cv">
       <div>
         <h3>Engenheiro de Dados, PGX</h3>
         <p class="period">jan/2026 até hoje</p>
@@ -377,6 +494,8 @@ tr.hide{display:none}
         <h3>Tecnologias</h3>
         <dl class="stack">
           <div><dt>Dados</dt><dd>Python, SQL, pandas, PostgreSQL, Apache Iceberg, Prefect, Alteryx</dd></div>
+          <div><dt>ML</dt><dd>Modelos de propensão, regressão logística, LightGBM, calibração e testes A/B</dd></div>
+          <div><dt>IA</dt><dd>IA generativa para extração de documentos e automação de processos</dd></div>
           <div><dt>Nuvem</dt><dd>AWS (Athena, Glue, S3, Lambda, EC2, RDS) e Azure</dd></div>
           <div><dt>Visualização</dt><dd>Power BI, Streamlit, Flask</dd></div>
           <div><dt>Engenharia</dt><dd>APIs REST, Git, GitHub Actions, CI/CD, Linux, Docker</dd></div>
@@ -413,7 +532,7 @@ tr.hide{display:none}
       c.hidden=!ver; c.classList.remove('entra');
       if(ver){n++; void c.offsetWidth; if(!calmo)c.classList.add('entra')}
     });
-    $('#filter-count').innerHTML=f==='todos'?'Mostrando os 6 casos':'Mostrando <strong>'+n+' de 6</strong> casos em <strong>'+b.textContent+'</strong>';
+    $('#filter-count').innerHTML=f==='todos'?'Mostrando os 7 casos':'Mostrando <strong>'+n+' de 7</strong> casos em <strong>'+b.textContent+'</strong>';
   })});
 
   // Bot: respostas com dados fictícios
@@ -444,20 +563,23 @@ tr.hide{display:none}
     passo();
   });
 
-  // Painel por período
-  var meses={
-    jan:{r:'R$ 108 mil',d:'R$ 90 mil',t:'R$ 18 mil',l:[['ABC1D23',20,'26%'],['EFG4H56',18,'24%'],['IJK7L89',15,'21%']]},
-    fev:{r:'R$ 114 mil',d:'R$ 91 mil',t:'R$ 23 mil',l:[['ABC1D23',21,'29%'],['IJK7L89',18,'25%'],['EFG4H56',17,'23%']]},
-    mar:{r:'R$ 120 mil',d:'R$ 92 mil',t:'R$ 28 mil',l:[['ABC1D23',22,'31%'],['EFG4H56',19,'27%'],['IJK7L89',17,'24%']]}
+  // Camadas de dados
+  var camadas={
+    bronze:{h:['Origem','Evento','Valor'],l:[['api_vendas','{"status":"PAGO"}','"120,50"'],['api_vendas','{"status":"pago "}','"120,50"'],['api_app','{"status":"NOVO"}','"89,90"']],n:'Bronze: o dado bruto, como chegou da origem.'},
+    silver:{h:['Pedido','Status','Valor'],l:[['1001','pago','120,50'],['1002','novo','89,90']],n:'Silver: dado limpo, padronizado e sem duplicidade.'},
+    gold:{h:['Indicador','Período','Valor'],l:[['Receita paga','Hoje','R$ 120,50'],['Conversão','Hoje','50%']],n:'Gold: indicadores prontos para o dashboard.'}
   };
-  var mesBtns=$$('[data-mes]');
-  mesBtns.forEach(function(b){b.addEventListener('click',function(){
-    marcar(mesBtns,b); var m=meses[b.dataset.mes];
-    $('#k-rec').textContent=m.r; $('#k-des').textContent=m.d; $('#k-res').textContent=m.t;
-    $('#k-rows').innerHTML=m.l.map(function(x){return '<tr><td>'+x[0]+'</td><td class="n">'+x[1]+'</td><td class="n">'+x[2]+'</td></tr>'}).join('');
+  var camBtns=$$('[data-cam]');
+  function celula(tag,t,dir){var e=document.createElement(tag);e.textContent=t;if(dir)e.className='n';return e}
+  camBtns.forEach(function(b){b.addEventListener('click',function(){
+    marcar(camBtns,b); var c=camadas[b.dataset.cam], h=$('#cam-head'), r=$('#cam-rows'), tr=document.createElement('tr');
+    h.innerHTML=''; r.innerHTML='';
+    c.h.forEach(function(t,i){tr.appendChild(celula('th',t,i===2))}); h.appendChild(tr);
+    c.l.forEach(function(l){var t=document.createElement('tr');l.forEach(function(v,i){t.appendChild(celula('td',v,i===2))});r.appendChild(t)});
+    $('#cam-note').textContent=c.n;
   })});
 
-  // Conciliação
+  // Pedidos da torre de controle
   var cBtns=$$('.controls [data-st]');
   cBtns.forEach(function(b){b.addEventListener('click',function(){
     marcar(cBtns,b); var dif=b.dataset.st==='dif';
@@ -478,6 +600,86 @@ tr.hide{display:none}
     marcar(vBtns,b); var v=b.dataset.view;
     $$('.chart .before').forEach(function(l){l.hidden=v==='depois'});
     $$('.chart .after').forEach(function(l){l.hidden=v==='antes'});
+  })});
+
+  // Gráficos (dados fictícios)
+  var NS='http://www.w3.org/2000/svg';
+  function svgEl(t,a,pai){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);if(pai)pai.appendChild(e);return e}
+  function dica(box,x,y,t){var d=box.querySelector('.tip');if(!d){d=document.createElement('div');d.className='tip';box.appendChild(d)}
+    d.textContent=t;d.hidden=false;var w=box.clientWidth,m=d.offsetWidth/2+2;d.style.left=Math.min(Math.max(x,m),w-m)+'px';d.style.top=Math.max(y,28)+'px'}
+  function some(box){var d=box.querySelector('.tip');if(d)d.hidden=true}
+
+  var cats=[['Moradia',2100],['Alimentação',1280],['Transporte',420],['Lazer',260],['Saúde',190]];
+  $('#g-cat').innerHTML=cats.map(function(c){return '<div class="hbar"><span>'+c[0]+'</span><div><s style="width:'+(c[1]/2100*100)+'%"></s></div><b>R$ '+c[1].toLocaleString('pt-BR')+'</b></div>'}).join('');
+
+  var dias=[['Seg',92],['Ter',94],['Qua',91],['Qui',95],['Sex',96],['Sáb',93],['Dom',97]];
+  function linha(box){
+    var W=box.clientWidth,H=170,m={l:36,r:34,t:12,b:22};if(!W)return;
+    var y0=88,y1=100,x=function(i){return m.l+i*(W-m.l-m.r)/(dias.length-1)},y=function(v){return m.t+(y1-v)*(H-m.t-m.b)/(y1-y0)};
+    var old=box.querySelector('svg');if(old)old.remove();
+    var g=svgEl('svg',{viewBox:'0 0 '+W+' '+H,width:W,height:H});
+    [90,95,100].forEach(function(v){svgEl('line',{x1:m.l,x2:W-m.r,y1:y(v),y2:y(v),stroke:'var(--line)','stroke-width':1},g);svgEl('text',{x:m.l-7,y:y(v)+4,'text-anchor':'end'},g).textContent=v+'%'});
+    dias.forEach(function(d,i){svgEl('text',{x:x(i),y:H-6,'text-anchor':'middle'},g).textContent=d[0]});
+    var pts=dias.map(function(d,i){return x(i)+','+y(d[1])}).join(' ');
+    svgEl('polygon',{points:x(0)+','+y(y0)+' '+pts+' '+x(dias.length-1)+','+y(y0),fill:'var(--accent)','fill-opacity':.1},g);
+    svgEl('polyline',{points:pts,fill:'none',stroke:'var(--accent)','stroke-width':2,'stroke-linejoin':'round'},g);
+    var u=dias.length-1;svgEl('circle',{cx:x(u),cy:y(dias[u][1]),r:4,fill:'var(--accent)',stroke:'var(--surface)','stroke-width':2},g);
+    var fim=svgEl('text',{x:x(u)+8,y:y(dias[u][1])+4,'class':'end'},g);fim.textContent=dias[u][1]+'%';
+    var cruz=svgEl('line',{y1:m.t,y2:H-m.b,stroke:'var(--muted)','stroke-width':1,visibility:'hidden'},g);
+    var pto=svgEl('circle',{r:4,fill:'var(--accent)',stroke:'var(--surface)','stroke-width':2,visibility:'hidden'},g);
+    var alvo=svgEl('rect',{x:m.l-8,y:0,width:W-m.l-m.r+16,height:H,fill:'transparent'},g);
+    alvo.addEventListener('pointermove',function(ev){var r=box.getBoundingClientRect(),i=Math.round((ev.clientX-r.left-m.l)/((W-m.l-m.r)/u));i=Math.max(0,Math.min(u,i));
+      cruz.setAttribute('x1',x(i));cruz.setAttribute('x2',x(i));cruz.setAttribute('visibility','visible');pto.setAttribute('cx',x(i));pto.setAttribute('cy',y(dias[i][1]));pto.setAttribute('visibility','visible');dica(box,x(i),y(dias[i][1]),dias[i][0]+': '+dias[i][1]+'%')});
+    alvo.addEventListener('pointerleave',function(){cruz.setAttribute('visibility','hidden');pto.setAttribute('visibility','hidden');some(box)});
+    box.insertBefore(g,box.firstChild);
+  }
+
+  var dre=[['Jan',108,90],['Fev',114,91],['Mar',120,92],['Abr',126,97],['Mai',118,95],['Jun',132,99]];
+  function barras(box){
+    var W=box.clientWidth,H=170,m={l:36,r:6,t:10,b:22};if(!W)return;
+    var y=function(v){return m.t+(150-v)*(H-m.t-m.b)/150},g0=(W-m.l-m.r)/dre.length,bw=Math.min(16,(g0-12)/2);
+    var old=box.querySelector('svg');if(old)old.remove();
+    var g=svgEl('svg',{viewBox:'0 0 '+W+' '+H,width:W,height:H});
+    [0,50,100,150].forEach(function(v){svgEl('line',{x1:m.l,x2:W-m.r,y1:y(v),y2:y(v),stroke:'var(--line)','stroke-width':1},g);svgEl('text',{x:m.l-7,y:y(v)+4,'text-anchor':'end'},g).textContent=v});
+    function coluna(px,v,cor,txt){var t=y(v),b=y(0),r=Math.min(4,bw/2);
+      svgEl('path',{d:'M'+px+' '+b+'V'+(t+r)+'Q'+px+' '+t+' '+(px+r)+' '+t+'H'+(px+bw-r)+'Q'+(px+bw)+' '+t+' '+(px+bw)+' '+(t+r)+'V'+b+'Z',fill:cor},g);
+      var a=svgEl('rect',{x:px-1,y:m.t,width:bw+2,height:H-m.t-m.b,fill:'transparent'},g);
+      a.addEventListener('pointerenter',function(){dica(box,px+bw/2,t,txt)});a.addEventListener('pointerleave',function(){some(box)});a.addEventListener('click',function(){dica(box,px+bw/2,t,txt)})}
+    dre.forEach(function(d,i){var c=m.l+g0*i+g0/2;
+      svgEl('text',{x:c,y:H-6,'text-anchor':'middle'},g).textContent=d[0];
+      coluna(c-bw-1,d[1],'var(--serie1)',d[0]+' · Receita: R$ '+d[1]+' mil');
+      coluna(c+1,d[2],'var(--serie2)',d[0]+' · Despesa: R$ '+d[2]+' mil')});
+    box.insertBefore(g,box.firstChild);
+  }
+  function desenha(){linha($('#g-prazo'));barras($('#g-dre'))}
+  desenha();
+  var espera;window.addEventListener('resize',function(){clearTimeout(espera);espera=setTimeout(desenha,120)});
+  $$('[data-filter]').forEach(function(b){b.addEventListener('click',desenha)});
+
+  // Casos: abre um por vez
+  var togs=$$('.case-toggle');
+  function fecha(t){t.setAttribute('aria-expanded','false');document.getElementById(t.getAttribute('aria-controls')).hidden=true}
+  togs.forEach(function(t){t.addEventListener('click',function(){
+    var aberto=t.getAttribute('aria-expanded')==='true';
+    togs.forEach(fecha);
+    if(!aberto){
+      t.setAttribute('aria-expanded','true');document.getElementById(t.getAttribute('aria-controls')).hidden=false;desenha();
+      t.scrollIntoView({block:'start',behavior:calmo?'auto':'smooth'});
+    }
+  })});
+  $$('[data-filter]').forEach(function(b){b.addEventListener('click',function(){togs.forEach(fecha)})});
+
+  // Decisão do motor (exemplos fictícios)
+  var clientes={
+    a:['Novo','64%','Boas-vindas','Primeira semana de uso e propensão acima do corte de 50%.'],
+    b:['Ativo','81%','Nenhuma','Propensão alta sem incentivo: a regra evita gastar com quem já voltaria.'],
+    c:['Parado','38%','Lembrete','Parado há 15 dias e propensão abaixo do corte de 50%.'],
+    d:['Controle','52%','Nenhuma','Grupo de controle: não recebe ação, para medir o efeito real das demais.']
+  };
+  var cliBtns=$$('[data-cli]');
+  cliBtns.forEach(function(b){b.addEventListener('click',function(){
+    marcar(cliBtns,b); var c=clientes[b.dataset.cli];
+    $('#n-perfil').textContent=c[0];$('#n-nota').textContent=c[1];$('#n-acao').textContent=c[2];$('#n-motivo').textContent=c[3];
   })});
 
   // Copiar e-mail
