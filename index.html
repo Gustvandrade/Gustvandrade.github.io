@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta property="og:title" content="Gustavo Andrade | Engenheiro de Dados e Automação">
+<meta property="og:description" content="Casos reais de automação, integrações, dados e tracking.">
+<meta property="og:type" content="website">
+<title>Portfólio Gustavo Andrade</title>
+<meta name="description" content="Gustavo Andrade, engenheiro de dados e automação. Casos reais de automação, integrações, dados e tracking.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: cada caso é uma linha de processamento, da entrada ao resultado, ao lado de uma tela de exemplo. */
+:root{
+  --bg:#050505; --surface:#111110; --ink:#f1efe9; --muted:#aaa69c; --line:#332a18;
+  --accent:#f5a300; --accent-soft:#2a1d05; --signal:#f5a300; --signal-soft:#33240a; --ok:#21d07a;
+  --before:#7f6b45; --on-accent:#050505;
+  --display:"Bricolage Grotesque","Segoe UI",sans-serif;
+  --body:"IBM Plex Sans","Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:400 1rem/1.6 var(--body)}
+.wrap{width:100%;padding-left:max(clamp(16px,4vw,72px),env(safe-area-inset-left,0px));padding-right:max(clamp(16px,4vw,72px),env(safe-area-inset-right,0px))}
+.topline{height:4px;background:linear-gradient(90deg,#7a5200,var(--accent) 35%,#ffd36b 60%,var(--accent) 85%,#7a5200)}
+.prompt{font:500 clamp(1rem,1.8vw,1.3rem)/1.3 var(--mono);color:var(--ink);display:flex;align-items:center;gap:.6em;flex-wrap:wrap}
+.prompt b{color:var(--ok);font-weight:500}
+.prompt i{display:inline-block;width:.62em;height:1.15em;background:var(--accent)}
+.skills-line{font:400 .86rem/1.5 var(--mono);color:var(--muted);margin-top:6px}
+a{color:var(--accent);text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.08;margin:0}
+p{margin:0}
+.mono{font-family:var(--mono)}
+.eyebrow{font:500 .76rem/1.3 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+header.hero{position:relative;padding-block:clamp(44px,7vw,84px) clamp(32px,5vw,56px);display:grid;gap:36px;grid-template-columns:minmax(0,2fr) minmax(0,1fr);align-items:end}
+.hero h1{font-size:clamp(2.5rem,7vw,4.9rem);font-weight:700;letter-spacing:-.02em;margin-top:14px}
+.hero h1 span{color:var(--accent)}
+.lead{font-size:clamp(1.08rem,1.6vw,1.4rem);max-width:70ch;margin-top:22px}
+.who{display:grid;gap:14px;border-top:3px solid var(--accent);padding-top:16px}
+.who dl{display:grid;gap:10px;margin:0}
+.who dt{font:500 .72rem/1.2 var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.who dd{margin:2px 0 0}
+.nav{display:flex;flex-wrap:wrap;gap:8px 18px;padding-block:12px;border-block:1px solid var(--line);font:500 .84rem/1.4 var(--mono)}
+.section-head{padding-block:clamp(40px,6vw,64px) 22px;display:grid;gap:10px}
+.section-head h2{font-size:clamp(1.8rem,4vw,2.7rem);letter-spacing:-.01em}
+.section-head p{max-width:90ch;color:var(--muted)}
+.case{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(22px,4vw,72px);align-items:start;padding-block:clamp(30px,5vw,48px);border-top:1px solid var(--line)}
+.case h3{font-size:clamp(1.4rem,2.6vw,1.9rem);margin-top:8px}
+.case>div{min-width:0}
+.flow{display:grid;gap:0;margin-top:18px;list-style:none;padding:0}
+.flow li{display:grid;grid-template-columns:92px minmax(0,1fr);gap:14px;padding-block:11px;border-top:1px solid var(--line)}
+.flow b{font:500 .74rem/1.5 var(--mono);text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.flow .out b{color:var(--ok)}
+.flow .out{font-weight:500}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;padding:0;list-style:none}
+.tags li{font:400 .76rem/1.4 var(--mono);padding:3px 8px;background:var(--accent-soft);border-radius:3px}
+.screen{background:var(--surface);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.bar{display:flex;justify-content:space-between;gap:10px;padding:8px 12px;border-bottom:1px solid var(--line);font:500 .72rem/1.4 var(--mono);color:var(--muted)}
+.bar i{font-style:normal;color:var(--signal)}
+.pad{padding:14px}
+.chat{display:grid;gap:10px}
+.msg{max-width:92%;padding:9px 11px;border:1px solid var(--line);border-radius:4px;background:transparent;font-size:.9rem;line-height:1.45}
+.msg.me{justify-self:end;font-family:var(--mono);font-size:.84rem}
+table{width:100%;border-collapse:collapse;font-size:.84rem;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line)}
+th{font:500 .7rem/1.3 var(--mono);text-transform:uppercase;color:var(--muted)}
+td.n,th.n{text-align:right}
+.scroll{overflow-x:auto}
+.ok{color:var(--ok);font-weight:600}
+.warn{color:var(--signal);font-weight:600}
+.log{font:400 .79rem/1.65 var(--mono);white-space:pre-wrap;overflow-wrap:anywhere}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:12px}
+.kpis div{border:1px solid var(--line);padding:8px;min-width:0}
+.kpis span{display:block;font:500 .66rem/1.3 var(--mono);text-transform:uppercase;color:var(--muted)}
+.kpis strong{font:700 1.05rem/1.3 var(--display);font-variant-numeric:tabular-nums}
+.chart{display:grid;gap:12px}
+.row{display:grid;grid-template-columns:88px minmax(0,1fr);gap:10px;align-items:center;font-size:.84rem}
+.pair{display:grid;gap:3px}
+.line{display:flex;align-items:center;gap:7px;font:400 .74rem/1 var(--mono)}
+.line s{display:block;height:10px;text-decoration:none;min-width:2px}
+.before s{background:var(--before)}
+.after s{background:var(--ok)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;font:400 .74rem/1.4 var(--mono);color:var(--muted)}
+.legend span::before{content:"";display:inline-block;width:10px;height:10px;margin-right:6px;background:var(--before)}
+.legend span+span::before{background:var(--ok)}
+.note{font-size:.78rem;color:var(--muted);margin-top:10px}
+.cv{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(26px,5vw,56px);padding-bottom:12px}
+.cv>div{min-width:0}
+.cv h3{font-size:1.25rem;margin-top:22px}
+.cv h3:first-of-type{margin-top:8px}
+.cv .period{font:400 .78rem/1.5 var(--mono);color:var(--muted)}
+.cv ul{margin:8px 0 0;padding-left:18px;display:grid;gap:5px}
+.stack{display:grid;gap:9px;margin:12px 0 0}
+.stack div{display:grid;grid-template-columns:96px minmax(0,1fr);gap:10px;border-top:1px solid var(--line);padding-top:8px}
+.stack dt{font:500 .74rem/1.5 var(--mono);text-transform:uppercase;color:var(--muted)}
+.stack dd{margin:0}
+footer{margin-top:56px;background:var(--accent);color:var(--on-accent)}
+footer .wrap{padding-block:clamp(34px,6vw,56px);display:grid;gap:14px}
+footer h2{font-size:clamp(1.7rem,4vw,2.6rem)}
+footer a{color:inherit}
+footer p{max-width:60ch}
+.contact{display:flex;flex-wrap:wrap;gap:8px 28px;font:500 .94rem/1.5 var(--mono)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg)}
+.nav a{text-decoration:none;color:var(--muted);padding-block:2px;border-bottom:2px solid transparent;transition:color .15s,border-color .15s}
+.nav a:hover,.nav a.active{color:var(--accent);border-color:var(--accent)}
+section[id],footer[id]{scroll-margin-top:56px}
+.btn{font:500 .8rem/1.3 var(--mono);color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:4px;padding:7px 11px;cursor:pointer;transition:color .15s,border-color .15s,background .15s,transform .1s}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn:active{transform:translateY(1px)}
+.btn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn.primary:hover{background:transparent;color:var(--accent)}
+.btn:disabled{opacity:.55;cursor:wait}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.filter-count{color:var(--muted);font:400 .8rem/1.4 var(--mono)}
+.controls{display:flex;flex-wrap:wrap;gap:8px;padding:10px 14px;border-top:1px solid var(--line)}
+.controls .hint{font:400 .74rem/1.4 var(--mono);color:var(--muted);align-self:center}
+.case.entra{animation:entra .35s ease both}
+@keyframes entra{from{opacity:.15;transform:translateY(10px)}to{opacity:1;transform:none}}
+.filter-count strong{color:var(--accent);font-weight:500}
+.screen{transition:border-color .2s}
+.case:hover .screen{border-color:var(--accent)}
+.chat{min-height:190px;align-content:start}
+.log{min-height:150px}
+.line s{transition:width .45s ease}
+tr.hide{display:none}
+.result-msg{font:500 .78rem/1.4 var(--mono);min-height:1.4em;margin-top:8px;color:var(--muted)}
+.contact button{color:var(--on-accent);border-color:var(--on-accent)}
+.contact button:hover{color:var(--on-accent);border-color:var(--on-accent);background:rgba(0,0,0,.12)}
+.contact{align-items:center}
+@media (prefers-reduced-motion:reduce){.btn,.line s,.case,.screen,.nav a{transition:none}}
+@media (max-width:820px){
+  header.hero,.case,.cv{grid-template-columns:minmax(0,1fr)}
+  .flow li{grid-template-columns:76px minmax(0,1fr)}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+<style>html,body{margin:0}</style>
+</head>
+<body>
+
+
+<div class="topline"></div>
+<div class="wrap">
+  <header class="hero">
+    <div>
+      <p class="prompt"><b>&gt;_</b> data engineer <i aria-hidden="true"></i></p>
+      <p class="skills-line">python · sql · aws · etl · automação</p>
+      <h1>Gustavo <span>Andrade</span></h1>
+      <p class="lead">Transformo dados espalhados e tarefas manuais em sistemas que rodam sozinhos, avisam quando algo sai do esperado e mostram um número em que dá para confiar.</p>
+    </div>
+    <aside class="who" aria-label="Resumo">
+      <dl>
+        <div><dt>Experiência</dt><dd>Desde 2017 em dados, automação e sistemas internos</dd></div>
+        <div><dt>Hoje</dt><dd>Engenheiro de Dados na PGX</dd></div>
+        <div><dt>Formação</dt><dd>MBA em IA para Automação de Processos</dd></div>
+        <div><dt>Trabalho com</dt><dd>Python, SQL, APIs, AWS e PostgreSQL</dd></div>
+      </dl>
+    </aside>
+  </header>
+  <nav class="nav" aria-label="Seções">
+    <a href="#casos">Casos</a><a href="#experiencia">Experiência</a><a href="#contato">Contato</a>
+  </nav>
+
+  <section id="casos" aria-labelledby="t-casos">
+    <div class="section-head">
+      <p class="eyebrow">Projetos reais</p>
+      <h2 id="t-casos">Seis problemas, do dado de entrada ao resultado</h2>
+      <p>Os clientes e os valores financeiros ficam fora por confidencialidade. As telas são exemplos com dados fictícios. Os indicadores de resultado vêm dos projetos. Use os botões para testar cada exemplo.</p>
+      <div class="filters" role="group" aria-label="Filtrar casos por área">
+        <button class="btn" type="button" id="f-todos" data-filter="todos" aria-pressed="true">Todos</button>
+        <button class="btn" type="button" id="f-automacao" data-filter="automacao" aria-pressed="false">Automação</button>
+        <button class="btn" type="button" id="f-dados" data-filter="dados" aria-pressed="false">Dados</button>
+        <button class="btn" type="button" id="f-integracao" data-filter="integracao" aria-pressed="false">Integração</button>
+        <button class="btn" type="button" id="f-ia" data-filter="ia" aria-pressed="false">IA</button>
+        <button class="btn" type="button" id="f-marketing" data-filter="marketing" aria-pressed="false">Marketing</button>
+      </div>
+      <p class="filter-count" id="filter-count" aria-live="polite">Mostrando os 6 casos</p>
+    </div>
+
+    <article class="case" data-area="automacao">
+      <div>
+        <p class="eyebrow">Atendimento e finanças</p>
+        <h3>Assistente financeiro no WhatsApp</h3>
+        <ul class="flow">
+          <li><b>Problema</b><span>Acompanhar conta, cartões, parcelas e contas fixas exigia abrir vários aplicativos.</span></li>
+          <li><b>Solução</b><span>Criei um bot que recebe os dados por Open Finance, classifica cada gasto, identifica estabelecimentos e responde a comandos em um grupo.</span></li>
+          <li class="out"><b>Resultado</b><span>Funciona 24 horas com custo zero de nuvem. Mais de 2 mil transações processadas e 17 de 17 pagamentos de fatura identificados na validação.</span></li>
+        </ul>
+        <ul class="tags"><li>Python</li><li>SQLite</li><li>Docker</li><li>Oracle Cloud</li><li>Open Finance</li></ul>
+      </div>
+      <figure class="screen" style="margin:0">
+        <div class="bar"><span>Grupo do bot</span><i>Dados fictícios</i></div>
+        <div class="pad chat" id="chat" aria-live="polite">
+          <p class="msg me">raio-x</p>
+          <p class="msg"><strong>Raio-X do mês</strong><br>Alimentação: R$ 1.280,00<br>Compras até R$ 30: 18<br>Ritmo do mês: sobra ~R$ 410,00</p>
+          <p class="msg">Reposição perto do teto da semana: R$ 148,00 de R$ 175,00.</p>
+        </div>
+        <div class="controls" role="group" aria-label="Comandos do bot">
+          <span class="hint">Teste um comando:</span>
+          <button class="btn" type="button" id="cmd-raio" data-cmd="raio-x">raio-x</button>
+          <button class="btn" type="button" id="cmd-saldo" data-cmd="saldo">saldo</button>
+          <button class="btn" type="button" id="cmd-limites" data-cmd="limites">limites</button>
+          <button class="btn" type="button" id="cmd-lugar" data-cmd="lugares">lugares</button>
+        </div>
+      </figure>
+    </article>
+
+    <article class="case" data-area="automacao integracao">
+      <div>
+        <p class="eyebrow">Fiscal</p>
+        <h3>Captura automática de documentos fiscais</h3>
+        <ul class="flow">
+          <li><b>Problema</b><span>Uma transportadora dependia de portais, e-mails e relatórios para reunir seus documentos.</span></li>
+          <li><b>Solução</b><span>Automatizei a coleta de CT-e, NF-e e NFS-e por portais, e-mail e API autenticada com certificado digital.</span></li>
+          <li class="out"><b>Resultado</b><span>Rotina diária de 7 etapas com monitoramento. Encontrei a causa de 59 notas que falhavam todos os dias e recuperei as 59.</span></li>
+        </ul>
+        <ul class="tags"><li>Python</li><li>XML</li><li>mTLS</li><li>PostgreSQL</li><li>AWS</li></ul>
+      </div>
+      <figure class="screen" style="margin:0">
+        <div class="bar"><span>Execução diária</span><i>Dados fictícios</i></div>
+        <div class="pad log" id="run-log">06:00 coleta_cte         <span class="ok">ok</span>  128 documentos
+06:03 coleta_nfse        <span class="ok">ok</span>   74 documentos
+06:05 anexos_email       <span class="ok">ok</span>   39 xml
+06:06 validacao_xml      <span class="ok">ok</span>    0 com erro
+06:07 carga_banco        <span class="ok">ok</span>  241 linhas
+06:07 duplicidades       <span class="ok">ok</span>    0</div>
+        <div class="controls"><button class="btn primary" type="button" id="run-btn">Executar rotina</button><span class="hint" id="run-status">Última execução: 06:07</span></div>
+      </figure>
+    </article>
+
+    <article class="case" data-area="dados">
+      <div>
+        <p class="eyebrow">Gestão e financeiro</p>
+        <h3>Sistema de gestão para transportadora</h3>
+        <ul class="flow">
+          <li><b>Problema</b><span>A empresa não tinha ERP e controlava a operação com planilhas e relatórios de clientes.</span></li>
+          <li><b>Solução</b><span>Trabalho na evolução do sistema com a equipe do cliente: alocações, cálculo de frete, conferência fiscal, contas, DRE e deploy.</span></li>
+          <li class="out"><b>Resultado</b><span>A transportadora passou a fechar o mês pelo sistema, com 108 testes automatizados e backups antes de cada entrega.</span></li>
+        </ul>
+        <ul class="tags"><li>Python</li><li>Flask</li><li>PostgreSQL</li><li>Docker</li><li>AWS</li></ul>
+      </div>
+      <figure class="screen" style="margin:0">
+        <div class="bar"><span>Painel do mês</span><i>Dados fictícios</i></div>
+        <div class="pad">
+          <div class="kpis">
+            <div><span>Receita</span><strong id="k-rec">R$ 120 mil</strong></div>
+            <div><span>Despesa</span><strong id="k-des">R$ 92 mil</strong></div>
+            <div><span>Resultado</span><strong id="k-res">R$ 28 mil</strong></div>
+          </div>
+          <div class="scroll"><table>
+            <thead><tr><th>Veículo</th><th class="n">Viagens</th><th class="n">Margem</th></tr></thead>
+            <tbody id="k-rows"><tr><td>ABC1D23</td><td class="n">22</td><td class="n">31%</td></tr><tr><td>EFG4H56</td><td class="n">19</td><td class="n">27%</td></tr><tr><td>IJK7L89</td><td class="n">17</td><td class="n">24%</td></tr></tbody>
+          </table></div>
+        </div>
+        <div class="controls" role="group" aria-label="Período do painel">
+          <span class="hint">Período:</span>
+          <button class="btn" type="button" id="m-jan" data-mes="jan" aria-pressed="false">Janeiro</button>
+          <button class="btn" type="button" id="m-fev" data-mes="fev" aria-pressed="false">Fevereiro</button>
+          <button class="btn" type="button" id="m-mar" data-mes="mar" aria-pressed="true">Março</button>
+        </div>
+      </figure>
+    </article>
+
+    <article class="case" data-area="integracao dados">
+      <div>
+        <p class="eyebrow">Integração</p>
+        <h3>Conciliação automática de pagamentos</h3>
+        <ul class="flow">
+          <li><b>Problema</b><span>Saber quanto foi pago por documento exigia conferência manual no portal do cliente.</span></li>
+          <li><b>Solução</b><span>Integrei o portal e identifiquei a chave exata para ligar cada título ao seu CT-e.</span></li>
+          <li class="out"><b>Resultado</b><span>450 de 451 documentos conciliados na validação. Depois, 101 de 101 no fechamento mensal.</span></li>
+        </ul>
+        <ul class="tags"><li>Python</li><li>API REST</li><li>SQL</li></ul>
+      </div>
+      <figure class="screen" style="margin:0">
+        <div class="bar"><span>Conciliação</span><i>Dados fictícios</i></div>
+        <div class="pad scroll"><table>
+          <thead><tr><th>CT-e</th><th class="n">Emitido</th><th class="n">Pago</th><th>Status</th></tr></thead>
+          <tbody id="conc"><tr data-st="ok"><td>10-1042</td><td class="n">1.250,00</td><td class="n">1.250,00</td><td class="ok">Conciliado</td></tr><tr data-st="ok"><td>10-1043</td><td class="n">980,00</td><td class="n">980,00</td><td class="ok">Conciliado</td></tr><tr data-st="dif"><td>10-1044</td><td class="n">1.410,00</td><td class="n">1.310,00</td><td class="warn">Diferença</td></tr></tbody>
+        </table></div>
+        <div class="controls" role="group" aria-label="Filtrar conciliação">
+          <button class="btn" type="button" id="c-todos" data-st="todos" aria-pressed="true">Todos</button>
+          <button class="btn" type="button" id="c-dif" data-st="dif" aria-pressed="false">Só diferenças</button>
+        </div>
+      </figure>
+    </article>
+
+    <article class="case" data-area="ia automacao">
+      <div>
+        <p class="eyebrow">Inteligência artificial</p>
+        <h3>Leitura de faturas escaneadas com IA</h3>
+        <ul class="flow">
+          <li><b>Problema</b><span>Faturas em imagem geravam colunas trocadas e valores errados na leitura automática.</span></li>
+          <li><b>Solução</b><span>Combinei a leitura por IA com regras de conferência: quantidade vezes preço, soma do total e veículo da frota.</span></li>
+          <li class="out"><b>Resultado</b><span>As faturas suspeitas agora pedem confirmação antes de salvar. A revisão humana fica concentrada onde há risco.</span></li>
+        </ul>
+        <ul class="tags"><li>Python</li><li>IA generativa</li><li>Validação</li><li>Testes</li></ul>
+      </div>
+      <figure class="screen" style="margin:0">
+        <div class="bar"><span>Revisão da fatura</span><i>Dados fictícios</i></div>
+        <div class="pad scroll"><table>
+          <thead><tr><th>Conferência</th><th>Resultado</th></tr></thead>
+          <tbody><tr><td>Quantidade × preço</td><td class="ok">Confere</td></tr><tr><td>Soma dos itens</td><td class="warn">R$ 12,40 de diferença</td></tr><tr><td>Placa na frota</td><td class="ok">Confere</td></tr></tbody>
+        </table><p class="result-msg" id="fat-msg" aria-live="polite">A primeira tentativa de salvar avisa. A segunda confirma.</p></div>
+        <div class="controls"><button class="btn primary" type="button" id="fat-btn">Salvar fatura</button></div>
+      </figure>
+    </article>
+
+    <article class="case" data-area="marketing dados">
+      <div>
+        <p class="eyebrow">Marketing e dados</p>
+        <h3>Tracking e atribuição de campanhas</h3>
+        <ul class="flow">
+          <li><b>Problema</b><span>Eventos enviados às plataformas de anúncio carregavam dados de clique com horário posterior ao da conversão.</span></li>
+          <li><b>Solução</b><span>Corrigi a seleção dos dados de clique no pipeline de eventos server-side e adicionei uma validação do valor enviado.</span></li>
+          <li class="out"><b>Resultado</b><span>Os eventos fora de ordem caíram em todos os tipos. Também atuo com Meta CAPI, Google Offline Conversions e postbacks.</span></li>
+        </ul>
+        <ul class="tags"><li>Python</li><li>SQL</li><li>Meta CAPI</li><li>Google Ads</li><li>Prefect</li></ul>
+      </div>
+      <figure class="screen" style="margin:0">
+        <div class="bar"><span>Eventos fora de ordem, 7 dias</span><i>Medição real</i></div>
+        <div class="pad">
+          <div class="chart" role="img" aria-label="Antes e depois da primeira correção: Purchase de 35 para 1, Lead de 114 para 22, Subscribe de 66 para 0, AddToCart de 146 para 2.">
+            <div class="row"><span>Purchase</span><div class="pair"><div class="line before"><s style="width:21%"></s>35</div><div class="line after"><s style="width:.6%"></s>1</div></div></div>
+            <div class="row"><span>Lead</span><div class="pair"><div class="line before"><s style="width:68%"></s>114</div><div class="line after"><s style="width:13%"></s>22</div></div></div>
+            <div class="row"><span>Subscribe</span><div class="pair"><div class="line before"><s style="width:39%"></s>66</div><div class="line after"><s style="width:0"></s>0</div></div></div>
+            <div class="row"><span>AddToCart</span><div class="pair"><div class="line before"><s style="width:86%"></s>146</div><div class="line after"><s style="width:1.2%"></s>2</div></div></div>
+          </div>
+          <div class="legend"><span>Antes</span><span>Depois da primeira correção</span></div>
+        </div>
+        <div class="controls" role="group" aria-label="Comparar antes e depois">
+          <button class="btn" type="button" id="t-antes" data-view="antes" aria-pressed="false">Só antes</button>
+          <button class="btn" type="button" id="t-ambos" data-view="ambos" aria-pressed="true">Comparar</button>
+          <button class="btn" type="button" id="t-depois" data-view="depois" aria-pressed="false">Só depois</button>
+        </div>
+      </figure>
+    </article>
+  </section>
+
+  <section id="experiencia" aria-labelledby="t-exp">
+    <div class="section-head">
+      <p class="eyebrow">Trajetória</p>
+      <h2 id="t-exp">Experiência e formação</h2>
+    </div>
+    <div class="cv">
+      <div>
+        <h3>Engenheiro de Dados, PGX</h3>
+        <p class="period">jan/2026 até hoje</p>
+        <ul>
+          <li>Arquitetura em camadas na AWS para plataforma multi-tenant.</li>
+          <li>Pipelines em Prefect e data lake em Apache Iceberg sobre S3.</li>
+          <li>Modelagem e otimização de consultas em PostgreSQL e Athena.</li>
+          <li>Dados de marketing por API, atribuição e dashboards de KPIs.</li>
+        </ul>
+        <h3>Analista PL, Full Stack e Dados, Neodent</h3>
+        <p class="period">jan/2017 a jan/2026</p>
+        <ul>
+          <li>Torre de controle logística em Python e Streamlit, com monitoramento em tempo real.</li>
+          <li>Pipelines em Alteryx com dados do SAP e carga em PostgreSQL.</li>
+          <li>Soluções em Python para o atendimento comercial em nível Brasil.</li>
+          <li>Key User SAP nos módulos MM e WM, com projetos de cadeia de suprimentos.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Formação</h3>
+        <ul>
+          <li>MBA em Inteligência Artificial para Automação de Processos, Universidade Positivo, 2026.</li>
+          <li>Tecnólogo em Administração de Banco de Dados, Estácio, 2024.</li>
+        </ul>
+        <h3>Tecnologias</h3>
+        <dl class="stack">
+          <div><dt>Dados</dt><dd>Python, SQL, pandas, PostgreSQL, Apache Iceberg, Prefect, Alteryx</dd></div>
+          <div><dt>Nuvem</dt><dd>AWS (Athena, Glue, S3, Lambda, EC2, RDS) e Azure</dd></div>
+          <div><dt>Visualização</dt><dd>Power BI, Streamlit, Flask</dd></div>
+          <div><dt>Engenharia</dt><dd>APIs REST, Git, GitHub Actions, CI/CD, Linux, Docker</dd></div>
+          <div><dt>Idiomas</dt><dd>Inglês avançado e espanhol intermediário</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer id="contato">
+  <div class="wrap">
+    <h2>Tem uma tarefa manual que já deveria rodar sozinha?</h2>
+    <p>Me conte o que consome tempo hoje. Eu respondo com um caminho e uma estimativa.</p>
+    <div class="contact">
+      <span id="email">gustv.andrade@gmail.com</span>
+      <button class="btn" type="button" id="copy-email">Copiar e-mail</button>
+      <a href="https://www.linkedin.com/in/andgusta">linkedin.com/in/andgusta</a>
+    </div>
+  </div>
+</footer>
+<script>
+(function(){
+  var $=function(s){return document.querySelector(s)}, $$=function(s){return Array.prototype.slice.call(document.querySelectorAll(s))};
+  var calmo=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function marcar(grupo,ativo){grupo.forEach(function(b){b.setAttribute('aria-pressed',b===ativo?'true':'false')})}
+
+  // Filtro por área
+  var filtros=$$('[data-filter]'), casos=$$('.case');
+  filtros.forEach(function(b){b.addEventListener('click',function(){
+    marcar(filtros,b); var f=b.dataset.filter, n=0;
+    casos.forEach(function(c){
+      var ver=f==='todos'||c.dataset.area.split(' ').indexOf(f)>=0;
+      c.hidden=!ver; c.classList.remove('entra');
+      if(ver){n++; void c.offsetWidth; if(!calmo)c.classList.add('entra')}
+    });
+    $('#filter-count').innerHTML=f==='todos'?'Mostrando os 6 casos':'Mostrando <strong>'+n+' de 6</strong> casos em <strong>'+b.textContent+'</strong>';
+  })});
+
+  // Bot: respostas com dados fictícios
+  var respostas={
+    'raio-x':['<strong>Raio-X do mês</strong><br>Alimentação: R$ 1.280,00<br>Compras até R$ 30: 18<br>Ritmo do mês: sobra ~R$ 410,00'],
+    'saldo':['<strong>Saldo:</strong> R$ 2.340,00<br>Fatura vence dia 13: R$ 1.120,00<br>Próximas faturas: R$ 860,00'],
+    'limites':['<strong>Limites do mês</strong><br>Mercado: R$ 640,00 de R$ 900,00<br>Lanche: R$ 95,00 de R$ 150,00<br>Gasolina: R$ 180,00 de R$ 200,00'],
+    'lugares':['<strong>Onde vocês mais compram</strong><br>Padaria da rua (padaria): 12x · R$ 148,00<br>Supermercado Centro: 4x · R$ 610,00']
+  };
+  var chat=$('#chat');
+  $$('[data-cmd]').forEach(function(b){b.addEventListener('click',function(){
+    var c=b.dataset.cmd; chat.innerHTML='<p class="msg me"></p>'; chat.firstChild.textContent=c;
+    setTimeout(function(){respostas[c].forEach(function(r){var p=document.createElement('p');p.className='msg';p.innerHTML=r;chat.appendChild(p)})},calmo?0:280);
+  })});
+
+  // Rotina fiscal
+  var etapas=[['coleta_cte','128 documentos'],['coleta_nfse','74 documentos'],['anexos_email','39 xml'],['validacao_xml','0 com erro'],['carga_banco','241 linhas'],['duplicidades','0']];
+  var runBtn=$('#run-btn'), log=$('#run-log'), runSt=$('#run-status');
+  runBtn.addEventListener('click',function(){
+    runBtn.disabled=true; log.textContent=''; runSt.textContent='Em execução…'; var i=0;
+    function passo(){
+      if(i===etapas.length){runBtn.disabled=false;runSt.textContent='Concluída: 6 de 6 etapas';return}
+      var e=etapas[i], s=document.createElement('span'), o=document.createElement('span');
+      s.textContent='06:0'+i+' '+(e[0]+'                  ').slice(0,18)+' '; o.className='ok'; o.textContent='ok';
+      log.appendChild(s); log.appendChild(o); log.appendChild(document.createTextNode('  '+e[1]+'\n')); i++;
+      setTimeout(passo,calmo?0:320);
+    }
+    passo();
+  });
+
+  // Painel por período
+  var meses={
+    jan:{r:'R$ 108 mil',d:'R$ 90 mil',t:'R$ 18 mil',l:[['ABC1D23',20,'26%'],['EFG4H56',18,'24%'],['IJK7L89',15,'21%']]},
+    fev:{r:'R$ 114 mil',d:'R$ 91 mil',t:'R$ 23 mil',l:[['ABC1D23',21,'29%'],['IJK7L89',18,'25%'],['EFG4H56',17,'23%']]},
+    mar:{r:'R$ 120 mil',d:'R$ 92 mil',t:'R$ 28 mil',l:[['ABC1D23',22,'31%'],['EFG4H56',19,'27%'],['IJK7L89',17,'24%']]}
+  };
+  var mesBtns=$$('[data-mes]');
+  mesBtns.forEach(function(b){b.addEventListener('click',function(){
+    marcar(mesBtns,b); var m=meses[b.dataset.mes];
+    $('#k-rec').textContent=m.r; $('#k-des').textContent=m.d; $('#k-res').textContent=m.t;
+    $('#k-rows').innerHTML=m.l.map(function(x){return '<tr><td>'+x[0]+'</td><td class="n">'+x[1]+'</td><td class="n">'+x[2]+'</td></tr>'}).join('');
+  })});
+
+  // Conciliação
+  var cBtns=$$('.controls [data-st]');
+  cBtns.forEach(function(b){b.addEventListener('click',function(){
+    marcar(cBtns,b); var dif=b.dataset.st==='dif';
+    $$('#conc tr').forEach(function(t){t.classList.toggle('hide',dif&&t.dataset.st!=='dif')});
+  })});
+
+  // Fatura: primeiro clique avisa, segundo salva
+  var fat=0, fatBtn=$('#fat-btn'), fatMsg=$('#fat-msg');
+  fatBtn.addEventListener('click',function(){
+    fat++;
+    if(fat===1){fatMsg.textContent='Atenção: a soma dos itens tem R$ 12,40 de diferença. Clique de novo para salvar mesmo assim.';fatMsg.style.color='var(--signal)';fatBtn.textContent='Salvar mesmo assim'}
+    else{fat=0;fatMsg.textContent='Fatura salva com a diferença registrada para revisão.';fatMsg.style.color='var(--ok)';fatBtn.textContent='Salvar fatura'}
+  });
+
+  // Tracking
+  var vBtns=$$('[data-view]');
+  vBtns.forEach(function(b){b.addEventListener('click',function(){
+    marcar(vBtns,b); var v=b.dataset.view;
+    $$('.chart .before').forEach(function(l){l.hidden=v==='depois'});
+    $$('.chart .after').forEach(function(l){l.hidden=v==='antes'});
+  })});
+
+  // Copiar e-mail
+  var cp=$('#copy-email'), em=$('#email');
+  cp.addEventListener('click',function(){
+    function ok(){cp.textContent='E-mail copiado';setTimeout(function(){cp.textContent='Copiar e-mail'},1800)}
+    function manual(){var r=document.createRange();r.selectNodeContents(em);var s=getSelection();s.removeAllRanges();s.addRange(r);cp.textContent='Selecionado: use Ctrl+C'}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(em.textContent).then(ok,manual)}else{manual()}
+  });
+
+  // Seção ativa na navegação
+  if('IntersectionObserver' in window){
+    var links=$$('.nav a');
+    var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id)})}})},{rootMargin:'-30% 0px -60% 0px'});
+    ['casos','experiencia','contato'].forEach(function(id){var el=document.getElementById(id);if(el)obs.observe(el)});
+  }
+})();
+</script>
+
+</body>
+</html>
