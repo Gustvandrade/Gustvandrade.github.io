@@ -199,6 +199,10 @@ header.hero{display:flex;flex-direction:column;justify-content:center;align-item
   .case-body{grid-template-columns:minmax(0,1fr)}
 }
 @media (prefers-reduced-motion:reduce){.mais,.case-title{transition:none}}
+.lang{position:fixed;z-index:20;top:calc(14px + env(safe-area-inset-top,0px));right:max(16px,env(safe-area-inset-right,0px));width:30px;height:30px;padding:0;background:transparent;border:1px solid var(--line);border-radius:50%;cursor:pointer;overflow:hidden;opacity:.75;transition:opacity .15s,border-color .15s}
+.lang:hover{opacity:1;border-color:var(--accent)}
+.lang svg{display:block;width:100%;height:100%}
+.lang svg[hidden]{display:none}
 </style>
 <style>html,body{margin:0}</style>
 </head>
@@ -206,6 +210,10 @@ header.hero{display:flex;flex-direction:column;justify-content:center;align-item
 
 
 <div class="topline"></div>
+<button class="lang" type="button" id="lang-btn" aria-label="Translate to English" title="English">
+  <svg id="flag-uk" viewBox="0 0 60 30" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><clipPath id="uj"><path d="M30 15h30v15zv15H0zH0V0zV0h30z"/></clipPath><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30m0-30L0 30" clip-path="url(#uj)" stroke="#C8102E" stroke-width="4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></svg>
+  <svg id="flag-br" viewBox="0 0 60 30" preserveAspectRatio="xMidYMid slice" aria-hidden="true" hidden><rect width="60" height="30" fill="#009739"/><path d="M30 3 56 15 30 27 4 15z" fill="#FEDD00"/><circle cx="30" cy="15" r="7.5" fill="#012169"/></svg>
+</button>
 <div class="wrap">
   <header class="hero">
     <svg class="trilhas" viewBox="0 0 240 300" aria-hidden="true" focusable="false">
@@ -708,6 +716,129 @@ header.hero{display:flex;flex-direction:column;justify-content:center;align-item
     var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id)})}})},{rootMargin:'-30% 0px -60% 0px'});
     ['casos','experiencia','contato'].forEach(function(id){var el=document.getElementById(id);if(el)obs.observe(el)});
   }
+
+  // Idioma: bandeira do Reino Unido traduz a página toda; a do Brasil volta ao português
+  var EN={
+    'Dados e automações que funcionam sozinhos.':'Data and automation that run on their own.',
+    'Ver projetos':'View projects','Trajetória':'Career','Contato':'Contact','Casos':'Projects','Experiência':'Experience',
+    'Projetos':'Projects','Todos':'All','Automação':'Automation','Dados':'Data','Integração':'Integration',
+    'Mostrando os 7 casos':'Showing all 7 projects','Problema':'Problem','Solução':'Solution','Resultado':'Result',
+    'Dados fictícios':'Sample data','Medição real':'Real measurement',
+    'Atendimento e finanças':'Service and finance','Assistente financeiro no WhatsApp':'WhatsApp financial assistant',
+    'Acompanhar conta, cartões, parcelas e contas fixas exigia abrir vários aplicativos.':'Tracking accounts, cards, instalments and fixed bills meant opening several apps.',
+    'Criei um bot que recebe os dados por Open Finance, classifica cada gasto, identifica estabelecimentos e responde a comandos em um grupo.':'I built a bot that receives data through Open Finance, classifies each expense, identifies merchants and answers commands in a group.',
+    'Funciona 24 horas com custo zero de nuvem. Mais de 2 mil transações processadas e 17 de 17 pagamentos de fatura identificados na validação.':'It runs 24 hours a day at zero cloud cost. More than 2,000 transactions processed, and 17 of 17 card bill payments identified during validation.',
+    'Grupo do bot':'Bot group','Raio-X do mês':'Monthly X-ray','Alimentação':'Food','Compras até R$ 30':'Purchases up to R$ 30','Ritmo do mês':'Monthly pace',
+    'sobra ~R$ 410,00':'~R$ 410.00 left over','Reposição perto do teto da semana: R$ 148,00 de R$ 175,00.':'Top-up shopping near the weekly cap: R$ 148.00 of R$ 175.00.',
+    'Gastos do mês por categoria':'Monthly spending by category','Moradia':'Housing','Transporte':'Transport','Lazer':'Leisure','Saúde':'Health',
+    'Teste um comando:':'Try a command:','saldo':'balance','limites':'limits','lugares':'places','raio-x':'x-ray',
+    'Saldo':'Balance','Fatura vence dia 13':'Card bill due on the 13th','Próximas faturas':'Upcoming bills','Limites do mês':'Monthly limits','Mercado':'Groceries','Lanche':'Snacks','Gasolina':'Fuel',
+    'R$ 640,00 de R$ 900,00':'R$ 640.00 of R$ 900.00','R$ 95,00 de R$ 150,00':'R$ 95.00 of R$ 150.00','R$ 180,00 de R$ 200,00':'R$ 180.00 of R$ 200.00',
+    'Onde vocês mais compram':'Where you shop most','Padaria da rua (padaria)':'Local bakery (bakery)','Supermercado Centro':'Downtown Supermarket',
+    'Engenharia de dados':'Data engineering','Plataforma de dados multi-tenant':'Multi-tenant data platform',
+    'Uma plataforma com várias empresas e alto volume de transações precisava de dados analíticos atualizados e confiáveis.':'A platform serving several companies, with a high transaction volume, needed up-to-date and reliable analytical data.',
+    'Atuo na arquitetura em camadas na AWS, com pipelines em Prefect, data lake em Apache Iceberg sobre S3 e modelagem analítica em PostgreSQL.':'I work on the layered AWS architecture, with Prefect pipelines, an Apache Iceberg data lake on S3 and analytical modelling in PostgreSQL.',
+    'Dados em janelas próximas ao tempo real e consultas otimizadas em custo e desempenho, com dashboards que saíram da casa dos minutos para segundos.':'Data in near real-time windows and queries tuned for cost and performance, with dashboards going from minutes to seconds.',
+    'Camadas de dados':'Data layers','Origem':'Source','Evento':'Event','Valor':'Value','Camada:':'Layer:','Bronze: o dado bruto, como chegou da origem.':'Bronze: raw data, as it arrived from the source.',
+    'Silver: dado limpo, padronizado e sem duplicidade.':'Silver: clean, standardised data with no duplicates.','Gold: indicadores prontos para o dashboard.':'Gold: metrics ready for the dashboard.',
+    'Pedido':'Order','Status':'Status','Indicador':'Metric','Período':'Period','Receita paga':'Paid revenue','Hoje':'Today','Conversão':'Conversion','pago':'paid','novo':'new',
+    'Machine learning':'Machine learning','Motor de próxima melhor ação (NBO)':'Next Best Offer (NBO) engine',
+    'Uma plataforma digital precisava decidir qual ação oferecer a cada cliente, e em que momento, sem tratar todos da mesma forma.':'A digital platform needed to decide which action to offer each customer, and when, without treating everyone the same way.',
+    'Liderei um motor que combina regras e modelo de propensão, roda 5 vezes ao dia e foi desenhado para medir o efeito real com grupo de controle e teste A/B.':'I led an engine that combines rules and a propensity model, runs 5 times a day and was designed to measure real impact with a control group and A/B testing.',
+    'Modelo com AUC de 0,851 em teste fora do tempo, contra 0,750 das regras. O motor opera em modo sombra, com checagens automáticas de qualidade, deriva dos dados e vazamento a cada rodada.':'Model with 0.851 AUC on an out-of-time test, against 0.750 for the rules. The engine runs in shadow mode, with automatic quality, data drift and leakage checks on every run.',
+    'Regressão logística':'Logistic regression','Teste A/B':'A/B testing','Decisão por cliente':'Decision by customer','Perfil':'Profile','Propensão':'Propensity','Ação':'Action',
+    'Novo':'New','Ativo':'Active','Parado':'Inactive','Grupo de controle':'Control group','Controle':'Control','Boas-vindas':'Welcome','Nenhuma':'None','Lembrete':'Reminder','Cliente:':'Customer:',
+    'Primeira semana de uso e propensão acima do corte de 50%.':'First week of use, with propensity above the 50% cut-off.',
+    'Propensão alta sem incentivo: a regra evita gastar com quem já voltaria.':'High propensity with no incentive: the rule avoids spending on customers who would return anyway.',
+    'Parado há 15 dias e propensão abaixo do corte de 50%.':'Inactive for 15 days, with propensity below the 50% cut-off.',
+    'Grupo de controle: não recebe ação, para medir o efeito real das demais.':'Control group: receives no action, so the real effect of the others can be measured.',
+    'AUC fora do tempo':'Out-of-time AUC','Logística':'Logistic','Regras':'Rules',
+    'Torre de controle logística':'Logistics control tower','Acompanhar a cadeia, do B2B ao B2C, dependia de informações espalhadas em diferentes fontes, incluindo o SAP.':'Tracking the supply chain, from B2B to B2C, relied on information scattered across different sources, including SAP.',
+    'Desenvolvi a aplicação ponta a ponta em Python e Streamlit, com pipelines em Alteryx e carga em PostgreSQL.':'I built the application end to end in Python and Streamlit, with Alteryx pipelines loading into PostgreSQL.',
+    'Dados gerenciais de toda a cadeia monitorados em tempo real em um único painel.':'Management data for the whole chain monitored in real time on a single dashboard.',
+    'Pedidos em andamento':'Orders in progress','Canal':'Channel','Destino':'Destination','No prazo':'On time','Atrasado':'Late','Entregas no prazo, últimos 7 dias':'On-time deliveries, last 7 days','Só atrasados':'Late only',
+    'Curitiba':'Curitiba','São Paulo':'São Paulo','Recife':'Recife',
+    'Fiscal e financeiro':'Tax and finance','Automação fiscal e financeira':'Tax and finance automation',
+    'A empresa não tinha ERP e reunia documentos, pagamentos e resultados em portais, e-mails e planilhas.':'The company had no ERP and gathered documents, payments and results from portals, emails and spreadsheets.',
+    'Automatizei a coleta de documentos fiscais e a conciliação de pagamentos. Trabalho com a equipe do cliente no sistema de gestão, com contas, indicadores e DRE.':"I automated tax document collection and payment reconciliation. I work with the client's team on the management system, covering accounts, metrics and income statements.",
+    'Rotina diária de 7 etapas, 59 de 59 notas com falha recuperadas e 450 de 451 documentos conciliados na validação. O fechamento mensal passou a ser feito pelo sistema.':'A 7-step daily routine, 59 of 59 failed invoices recovered and 450 of 451 documents reconciled during validation. The monthly close is now done in the system.',
+    'Execução diária':'Daily run','Executar rotina':'Run routine','Última execução: 06:07':'Last run: 06:07','Em execução…':'Running…','Concluída: 6 de 6 etapas':'Done: 6 of 6 steps',
+    'Receita e despesa por mês (R$ mil)':"Revenue and expenses by month (R$ '000)",'Receita':'Revenue','Despesa':'Expenses',
+    'Inteligência artificial':'Artificial intelligence','Leitura de faturas escaneadas com IA':'Reading scanned invoices with AI',
+    'Faturas em imagem geravam colunas trocadas e valores errados na leitura automática.':'Image-based invoices produced swapped columns and wrong values in automatic reading.',
+    'Combinei a leitura por IA com regras de conferência: quantidade vezes preço, soma do total e item no cadastro.':'I combined AI reading with validation rules: quantity times price, total sum and item in the registry.',
+    'As faturas suspeitas agora pedem confirmação antes de salvar. A revisão humana fica concentrada onde há risco.':'Suspicious invoices now require confirmation before saving. Human review focuses where the risk is.',
+    'IA generativa':'Generative AI','Validação':'Validation','Testes':'Testing','Revisão da fatura':'Invoice review','Conferência':'Check','Quantidade × preço':'Quantity × price','Confere':'Matches','Soma dos itens':'Sum of items','R$ 12,40 de diferença':'R$ 12.40 difference','Item no cadastro':'Item in registry',
+    'A primeira tentativa de salvar avisa. A segunda confirma.':'The first save attempt warns you. The second confirms.','Salvar fatura':'Save invoice','Salvar mesmo assim':'Save anyway',
+    'Atenção: a soma dos itens tem R$ 12,40 de diferença. Clique de novo para salvar mesmo assim.':'Warning: the sum of items is R$ 12.40 off. Click again to save anyway.','Fatura salva com a diferença registrada para revisão.':'Invoice saved, with the difference logged for review.',
+    'Marketing e dados':'Marketing and data','Tracking e atribuição de campanhas':'Campaign tracking and attribution',
+    'Eventos enviados às plataformas de anúncio carregavam dados de clique com horário posterior ao da conversão.':'Events sent to ad platforms carried click data timestamped after the conversion.',
+    'Corrigi a seleção dos dados de clique no pipeline de eventos server-side e adicionei uma validação do valor enviado.':'I fixed the click data selection in the server-side event pipeline and added validation of the value sent.',
+    'Os eventos fora de ordem caíram em todos os tipos. Também atuo com Meta CAPI, Google Offline Conversions e postbacks.':'Out-of-order events dropped across all types. I also work with Meta CAPI, Google Offline Conversions and postbacks.',
+    'Eventos fora de ordem, 7 dias':'Out-of-order events, 7 days','Antes':'Before','Depois da primeira correção':'After the first fix','Só antes':'Before only','Comparar':'Compare','Só depois':'After only',
+    'Clientes e valores financeiros ficam fora por confidencialidade. As telas usam dados fictícios, exceto a medição de tracking.':'Clients and financial values are left out for confidentiality. Screens use sample data, except the tracking measurement.',
+    'Engenheiro de Dados, PGX':'Data Engineer, PGX','jan/2026 até hoje':'Jan 2026 to present','Arquitetura em camadas na AWS para plataforma multi-tenant.':'Layered AWS architecture for a multi-tenant platform.',
+    'Pipelines em Prefect e data lake em Apache Iceberg sobre S3.':'Prefect pipelines and an Apache Iceberg data lake on S3.','Modelagem e otimização de consultas em PostgreSQL e Athena.':'Modelling and query optimisation in PostgreSQL and Athena.',
+    'Dados de marketing por API, atribuição e dashboards de KPIs.':'Marketing data via API, attribution and KPI dashboards.',
+    'Consultor de Dados e Automação, autônomo (PJ)':'Data and Automation Consultant, self-employed','ago/2025 até hoje':'Aug 2025 to present','Automação fiscal e financeira para empresas.':'Tax and finance automation for companies.',
+    'Evolução de sistema de gestão em Python, Flask e PostgreSQL.':'Management system development in Python, Flask and PostgreSQL.','Leitura de faturas com IA e validações automáticas.':'AI invoice reading with automatic validation.','Conciliação de pagamentos e integrações por API.':'Payment reconciliation and API integrations.',
+    'Analista PL, Full Stack e Dados, Neodent':'Mid-level Analyst, Full Stack and Data, Neodent','jan/2017 a jan/2026':'Jan 2017 to Jan 2026',
+    'Torre de controle logística em Python e Streamlit, com monitoramento em tempo real.':'Logistics control tower in Python and Streamlit, with real-time monitoring.','Pipelines em Alteryx com dados do SAP e carga em PostgreSQL.':'Alteryx pipelines with SAP data loading into PostgreSQL.',
+    'Soluções em Python para o atendimento comercial em nível Brasil.':'Python solutions for nationwide sales service.','Key User SAP nos módulos MM e WM, com projetos de cadeia de suprimentos.':'SAP Key User for the MM and WM modules, with supply chain projects.',
+    'Formação':'Education','MBA em Inteligência Artificial para Automação de Processos, Universidade Positivo, 2026.':'MBA in Artificial Intelligence for Process Automation, Universidade Positivo, 2026.',
+    'Tecnólogo em Administração de Banco de Dados, Estácio, 2024.':'Associate degree in Database Administration, Estácio, 2024.','Idiomas: inglês avançado e espanhol intermediário.':'Languages: advanced English and intermediate Spanish.',
+    'Tecnologias':'Technologies','Modelos de propensão, regressão logística, LightGBM, calibração e testes A/B':'Propensity models, logistic regression, LightGBM, calibration and A/B testing',
+    'IA generativa para extração de documentos e automação de processos':'Generative AI for document extraction and process automation','Nuvem':'Cloud','Visualização':'Visualisation','Engenharia':'Engineering',
+    'Tem uma tarefa manual que já deveria rodar sozinha?':'Got a manual task that should already run on its own?','Me conte o que consome tempo hoje. Eu respondo com um caminho e uma estimativa.':'Tell me what is taking up your time. I will reply with an approach and an estimate.',
+    'Copiar e-mail':'Copy email','E-mail copiado':'Email copied','Selecionado: use Ctrl+C':'Selected: press Ctrl+C',
+    'Python, SQL, pandas, PostgreSQL, Apache Iceberg, Prefect, Alteryx':'Python, SQL, pandas, PostgreSQL, Apache Iceberg, Prefect, Alteryx',
+    'AWS (Athena, Glue, S3, Lambda, EC2, RDS) e Azure':'AWS (Athena, Glue, S3, Lambda, EC2, RDS) and Azure',
+    'Seg':'Mon','Ter':'Tue','Qua':'Wed','Qui':'Thu','Sex':'Fri','Sáb':'Sat','Dom':'Sun','Fev':'Feb','Abr':'Apr','Mai':'May',
+    'Portfólio Gustavo Andrade':'Gustavo Andrade Portfolio'
+  };
+  var trechos=[[/ documentos\b/g,' documents'],[/ com erro\b/g,' errors'],[/ linhas\b/g,' rows']];
+  function parte(t){
+    if(EN[t])return EN[t];
+    var m=t.match(/^(.+?): (.+)$/);if(m&&EN[m[1]])return EN[m[1]]+': '+(EN[m[2]]||m[2]);
+    m=t.match(/^(.+) · (.+)$/);if(m)return parte(m[1])+' · '+parte(m[2]);
+    m=t.match(/^(\d+) de 7$/);if(m)return m[1]+' of 7';
+    m=t.match(/^R\$ (\d+) mil$/);if(m)return 'R$ '+m[1]+'k';
+    if(t==='casos em')return 'projects in';if(t==='Mostrando')return 'Showing';
+    return null;
+  }
+  function trad(v){
+    var m=v.match(/^(\s*)([\s\S]*?)(\s*)$/), r=parte(m[2]);
+    if(r!==null)return m[1]+r+m[3];
+    var w=v;trechos.forEach(function(p){w=w.replace(p[0],p[1])});return w;
+  }
+  var orig=new WeakMap(), rotulos=[], lang='pt';
+  function no(n){var v=n.nodeValue;if(!v||!v.trim())return;var w=trad(v);if(w!==v){orig.set(n,v);n.nodeValue=w}}
+  function textos(raiz,fn){
+    if(raiz.nodeType===3){fn(raiz);return}
+    if(raiz.nodeType!==1||/^(SCRIPT|STYLE)$/.test(raiz.tagName))return;
+    var w=document.createTreeWalker(raiz,NodeFilter.SHOW_TEXT),l=[];while(w.nextNode())l.push(w.currentNode);
+    l.forEach(function(n){if(!/^(SCRIPT|STYLE)$/.test(n.parentNode.tagName))fn(n)});
+  }
+  var ob=new MutationObserver(function(ms){if(lang!=='en')return;ms.forEach(function(m){
+    if(m.type==='characterData')no(m.target);else m.addedNodes.forEach(function(n){textos(n,no)});
+  })});
+  ob.observe(document.body,{subtree:true,childList:true,characterData:true});
+  var langBtn=$('#lang-btn');
+  function idioma(novo){
+    lang=novo;document.documentElement.lang=novo==='en'?'en':'pt-BR';
+    $('#flag-uk').toggleAttribute('hidden',novo==='en');$('#flag-br').toggleAttribute('hidden',novo!=='en');
+    langBtn.setAttribute('aria-label',novo==='en'?'Ver em português':'Translate to English');langBtn.title=novo==='en'?'Português':'English';
+    if(novo==='en'){
+      textos(document.body,no);document.title=EN[document.title]||document.title;
+      $$('[aria-label]').forEach(function(e){if(e===langBtn)return;var a=e.getAttribute('aria-label'),b=EN[a];if(b){rotulos.push([e,a]);e.setAttribute('aria-label',b)}});
+    }else{
+      textos(document.body,function(n){if(orig.has(n)){n.nodeValue=orig.get(n);orig.delete(n)}});document.title='Portfólio Gustavo Andrade';
+      rotulos.forEach(function(r){r[0].setAttribute('aria-label',r[1])});rotulos=[];
+    }
+    try{localStorage.setItem('idioma',novo)}catch(e){}
+  }
+  langBtn.addEventListener('click',function(){idioma(lang==='en'?'pt':'en')});
+  try{if(localStorage.getItem('idioma')==='en'||/[?&]lang=en\b/.test(location.search))idioma('en')}catch(e){}
 })();
 </script>
 
