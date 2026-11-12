@@ -256,7 +256,7 @@ header.hero{display:flex;flex-direction:column;justify-content:center;align-item
         <button class="btn" type="button" id="f-ia" data-filter="ia" aria-pressed="false">IA</button>
         <button class="btn" type="button" id="f-marketing" data-filter="marketing" aria-pressed="false">Marketing</button>
       </div>
-      <p class="filter-count" id="filter-count" aria-live="polite">Mostrando os 7 casos</p>
+      <p class="filter-count" id="filter-count" aria-live="polite">Mostrando os 8 casos</p>
     </div>
     <div class="cases">
 
@@ -385,6 +385,27 @@ header.hero{display:flex;flex-direction:column;justify-content:center;align-item
           <button class="btn" type="button" id="c-todos" data-st="todos" aria-pressed="true">Todos</button>
           <button class="btn" type="button" id="c-dif" data-st="dif" aria-pressed="false">Só atrasados</button>
         </div>
+      </figure>
+          </div>
+    </article>
+
+        <article class="case" data-area="dados integracao">
+      <h3 class="case-h"><button class="case-toggle" type="button" id="tg-8" aria-expanded="false" aria-controls="corpo-8"><span class="eyebrow">SAP e vendas</span><span class="case-title">Estoque entre filiais para o time comercial</span><span class="mais" aria-hidden="true">+</span></button></h3>
+      <div class="case-body" id="corpo-8" hidden>
+      <div>
+        <ul class="flow">
+          <li><b>Problema</b><span>Com 19 filiais no Brasil, a peça que o cliente queria podia estar em outra cidade. Para descobrir onde havia estoque, o consultor precisava ligar para as unidades.</span></li>
+          <li><b>Solução</b><span>Levantei os requisitos com o time comercial, escrevi a documentação funcional e técnica e mapeei os dados nas tabelas do SAP. No Alteryx, fiz os joins, as agregações e a modelagem, com carga em PostgreSQL. Uma aplicação web em Python e Flask mostra o estoque de cada filial em quase tempo real.</span></li>
+          <li class="out"><b>Resultado</b><span>O consultor encontra na hora a filial com estoque e fatura dela direto para o endereço do cliente, sem ligações. Respostas mais rápidas ajudaram a impulsionar as vendas.</span></li>
+        </ul>
+        <ul class="tags"><li>SAP</li><li>Alteryx</li><li>PostgreSQL</li><li>Python</li><li>Flask</li></ul>
+      </div>
+      <figure class="screen" style="margin:0">
+        <div class="bar"><span>Estoque por filial</span><i>Dados fictícios</i></div>
+        <div class="pad scroll"><table>
+          <thead><tr><th>Filial</th><th>Estoque</th><th>Situação</th></tr></thead>
+          <tbody><tr><td>Salvador</td><td>0</td><td class="warn">Sem estoque</td></tr><tr><td>Recife</td><td>0</td><td class="warn">Sem estoque</td></tr><tr><td>Florianópolis</td><td>12</td><td class="ok">Disponível</td></tr><tr><td>Curitiba</td><td>3</td><td class="ok">Disponível</td></tr></tbody>
+        </table><p class="result-msg">Cliente em Salvador: faturar de Florianópolis com entrega direta.</p></div>
       </figure>
           </div>
     </article>
@@ -547,7 +568,7 @@ header.hero{display:flex;flex-direction:column;justify-content:center;align-item
       c.hidden=!ver; c.classList.remove('entra');
       if(ver){n++; void c.offsetWidth; if(!calmo)c.classList.add('entra')}
     });
-    $('#filter-count').innerHTML=f==='todos'?'Mostrando os 7 casos':'Mostrando <strong>'+n+' de 7</strong> casos em <strong>'+b.textContent+'</strong>';
+    $('#filter-count').innerHTML=f==='todos'?'Mostrando os 8 casos':'Mostrando <strong>'+n+' de 8</strong> casos em <strong>'+b.textContent+'</strong>';
   })});
 
   // Bot: respostas com dados fictícios
@@ -717,7 +738,7 @@ header.hero{display:flex;flex-direction:column;justify-content:center;align-item
     'Dados e automações que funcionam sozinhos.':'Data and automation that run on their own.',
     'Ver projetos':'View projects','Trajetória':'Career','Contato':'Contact','Casos':'Projects','Experiência':'Experience',
     'Projetos':'Projects','Todos':'All','Automação':'Automation','Dados':'Data','Integração':'Integration',
-    'Mostrando os 7 casos':'Showing all 7 projects','Problema':'Problem','Solução':'Solution','Resultado':'Result',
+    'Mostrando os 8 casos':'Showing all 8 projects','Problema':'Problem','Solução':'Solution','Resultado':'Result',
     'Dados fictícios':'Sample data','Medição real':'Real measurement',
     'Atendimento e finanças':'Service and finance','Assistente financeiro no WhatsApp':'WhatsApp financial assistant',
     'Acompanhar conta, cartões, parcelas e contas fixas exigia abrir vários aplicativos.':'Tracking accounts, cards, instalments and fixed bills meant opening several apps.',
@@ -753,6 +774,12 @@ header.hero{display:flex;flex-direction:column;justify-content:center;align-item
     'Dados gerenciais de toda a cadeia monitorados em tempo real em um único painel.':'Management data for the whole chain monitored in real time on a single dashboard.',
     'Pedidos em andamento':'Orders in progress','Canal':'Channel','Destino':'Destination','No prazo':'On time','Atrasado':'Late','Entregas no prazo, últimos 7 dias':'On-time deliveries, last 7 days','Só atrasados':'Late only',
     'Curitiba':'Curitiba','São Paulo':'São Paulo','Recife':'Recife',
+    'SAP e vendas':'SAP and sales','Estoque entre filiais para o time comercial':'Cross-branch stock for the sales team',
+    'Com 19 filiais no Brasil, a peça que o cliente queria podia estar em outra cidade. Para descobrir onde havia estoque, o consultor precisava ligar para as unidades.':'With 19 branches across Brazil, the part a customer wanted could be in another city. To find out where it was in stock, sales reps had to call the branches.',
+    'Levantei os requisitos com o time comercial, escrevi a documentação funcional e técnica e mapeei os dados nas tabelas do SAP. No Alteryx, fiz os joins, as agregações e a modelagem, com carga em PostgreSQL. Uma aplicação web em Python e Flask mostra o estoque de cada filial em quase tempo real.':'I gathered the requirements with the sales team, wrote the functional and technical documentation and mapped the data in the SAP tables. In Alteryx I built the joins, aggregations and modeling, loading into PostgreSQL. A Python and Flask web app shows each branch’s stock in near real time.',
+    'O consultor encontra na hora a filial com estoque e fatura dela direto para o endereço do cliente, sem ligações. Respostas mais rápidas ajudaram a impulsionar as vendas.':'Sales reps instantly find the branch with stock and invoice from it straight to the customer’s address, with no phone calls. Faster answers helped boost sales.',
+    'Estoque por filial':'Stock by branch','Filial':'Branch','Estoque':'Stock','Situação':'Status','Sem estoque':'Out of stock','Disponível':'Available',
+    'Salvador':'Salvador','Florianópolis':'Florianópolis','Cliente em Salvador: faturar de Florianópolis com entrega direta.':'Customer in Salvador: invoice from Florianópolis with direct delivery.',
     'Fiscal e financeiro':'Tax and finance','Automação fiscal e financeira':'Tax and finance automation',
     'A empresa não tinha ERP e reunia documentos, pagamentos e resultados em portais, e-mails e planilhas.':'The company had no ERP and gathered documents, payments and results from portals, emails and spreadsheets.',
     'Automatizei a coleta de documentos fiscais e a conciliação de pagamentos. Também evoluí o sistema de gestão da empresa, com contas, indicadores e DRE.':"I automated tax document collection and payment reconciliation. I also evolved the company's management system, covering accounts, metrics and income statements.",
@@ -797,7 +824,7 @@ header.hero{display:flex;flex-direction:column;justify-content:center;align-item
     if(EN[t])return EN[t];
     var m=t.match(/^(.+?): (.+)$/);if(m&&EN[m[1]])return EN[m[1]]+': '+(EN[m[2]]||m[2]);
     m=t.match(/^(.+) · (.+)$/);if(m)return parte(m[1])+' · '+parte(m[2]);
-    m=t.match(/^(\d+) de 7$/);if(m)return m[1]+' of 7';
+    m=t.match(/^(\d+) de 8$/);if(m)return m[1]+' of 8';
     m=t.match(/^R\$ (\d+) mil$/);if(m)return 'R$ '+m[1]+'k';
     if(t==='casos em')return 'projects in';if(t==='Mostrando')return 'Showing';
     return null;
